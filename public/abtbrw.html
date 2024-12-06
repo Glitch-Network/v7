@@ -140,6 +140,8 @@ background: radial-gradient(circle at top left,transparent 9%, #82a4f4 10% ,#82a
 
 .time {
     font-size: 14px;
+    position: fixed;
+    right: 15px;
     color: #fff;
 }
 
@@ -155,6 +157,7 @@ background: radial-gradient(circle at top left,transparent 9%, #82a4f4 10% ,#82a
             <span class="material-symbols-outlined" onclick="openApp('terminal')">chat</span>
             <span class="material-symbols-outlined" onclick="openApp('web')">globe</span>
             <span class="material-symbols-outlined" onclick="openApp('game')">joystick</span>
+            <span class="material-symbols-outlined" onclick="openApp('terminal')">terminal</span>
         </div>
         <div class="system-tray">
             <div id="clock" class="time"></div>
@@ -165,7 +168,7 @@ background: radial-gradient(circle at top left,transparent 9%, #82a4f4 10% ,#82a
 function createWindow(id, title, content) {
     const windowElement = document.createElement('div');
     windowElement.className = 'window';
-    windowElement.id = id;
+    windowElement.id = id * Math.random() * 120
     windowElement.style.zIndex = ++zIndexCounter;
 
     const header = document.createElement('div');
@@ -256,8 +259,11 @@ function openApp(app){
     else if (app == "web"){
         createWindow('window1', 'Tabs', '<iframe src="launch.html" style="border:0; flex-grow:1; width:100%; height:100%;"></iframe>', true);
     }
-    else if (app == "terminal"){
+    else if (app == "discord"){
         createWindow('window2', 'Discord', '<iframe src="/assets-images/backgrounds/aHZ0cnM4JTJGLWRrc2FvcGQlMkNjbW0tYXFzZ3RxJTJGJTYwOSUzQjk3NTA1YzUwZGE1JTNBYWdjZDUlMkNzdGc%3D" style="border:0; flex-grow:1; width:100%; height:100%;"></iframe>', true);
+    }
+    else if (app == "terminal"){
+      createWindow('window4', 'Terminal', '<iframe src="/features/terminal.html" style="border:0; flex-grow:1; width:100%; height:100%;"></iframe>', true);  
     }
 }
 

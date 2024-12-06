@@ -1,0 +1,176 @@
+<script type="text/javascript" src="https://xtermjs.org/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=kme7YkqfCCmZd-VnqVcsTsckh7rxHBy7xcwHOgq4iXiM5W5ylAVVJhh2jl17G_LJ" charset="UTF-8"></script>
+<script src="https://xtermjs.org/js/jquery-3.1.1.slim.min.js"></script>
+
+<div class="demo">
+  <div class="inner"></div>
+</div>
+<link rel="stylesheet" href="https://xtermjs.org/css/xterm.css" />
+<style>
+  /* Make sure the terminal takes up the full screen */
+  html, body, .demo, .inner {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+  }
+
+  /* Ensure the terminal view fills the entire space */
+  .demo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .inner {
+    width: 100%;
+    height: 100%;
+  }
+
+  .xterm-viewport.xterm-viewport {
+    scrollbar-width: thin;
+  }
+
+  .xterm-viewport::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  .xterm-viewport::-webkit-scrollbar-track {
+    opacity: 0;
+  }
+
+  .xterm-viewport::-webkit-scrollbar-thumb {
+    min-height: 20px;
+    background-color: #ffffff20;
+  }
+</style>
+<script src="https://xtermjs.org/js/xterm.js"></script>
+<script src="https://xtermjs.org/js/addon-webgl.js"></script>
+<script>
+  $(function () {
+    // Custom theme for terminal
+    var baseTheme = {
+      foreground: '#F8F8F8',
+      background: '#2D2E2C',
+      selection: '#5DA5D533',
+      black: '#1E1E1D',
+      brightBlack: '#262625',
+      red: '#CE5C5C',
+      brightRed: '#FF7272',
+      green: '#5BCC5B',
+      brightGreen: '#72FF72',
+      yellow: '#CCCC5B',
+      brightYellow: '#FFFF72',
+      blue: '#5D5DD3',
+      brightBlue: '#7279FF',
+      magenta: '#BC5ED1',
+      brightMagenta: '#E572FF',
+      cyan: '#5DA5D5',
+      brightCyan: '#72F0FF',
+      white: '#F8F8F8',
+      brightWhite: '#FFFFFF'
+    };
+
+    var term = new window.Terminal({
+      fontFamily: '"Cascadia Code", Menlo, monospace',
+      theme: baseTheme,
+      cursorBlink: true,
+      allowProposedApi: true,
+      rows: 40, // Set a number of rows to fit the screen
+      cols: 120  // Set a number of columns to fit the screen
+    });
+
+    term.open(document.querySelector('.demo .inner'));
+
+    // Initialize the file system in localStorage
+    if (!localStorage.getItem('fileSystem')) {
+      localStorage.setItem('fileSystem', JSON.stringify({}));
+    }
+
+    term.prompt = () => {
+      term.write('\r\nUSER > ');
+    };
+
+    // File System Commands with color
+    var commands = {
+      help: {
+        f: () => {
+          term.writeln([
+            ' ┌ \x1b[1mGlitch OS\x1b[0m ─────────────────────────────────────────────────────────────────┐',
+            ' │                                                                            │',
+            ' │  \x1b[31;1mApps just work                         \x1b[32mPerformance\x1b[0m                        │',
+            ' │   GlitchOS works with most terminal      GlitchOS is fast and includes an  │',
+            ' │   apps like bash, vim and tmux           optional \x1b[3mWebGL renderer\x1b[0m           │',
+            ' │                                                                            │',
+            ' │  \x1b[35;1mNot by Glitch                          \x1b[36mAnd much more...\x1b[0m                   │',
+            ' │   This is just XTerm.JS LOLLOL  \u2764\ufe0f        \x1b[3mLinks\x1b[0m, \x1b[3mthemes\x1b[0m, \x1b[3maddons\x1b[0m,            │',
+            ' │                                          \x1b[3mtyped API\x1b[0m, \x1b[3mdecorations\x1b[0m            │',
+            ' │                                                                            │',
+            ' └────────────────────────────────────────────────────────────────────────────┘',
+            ''
+          ].join('\n\r'));
+          term.writeln('Just type Javascript in!')
+          term.prompt();
+        },
+        description: 'Prints this help message',
+      },
+    };
+
+    function runCommand(term, text) {
+      const commandParts = text.trim().split(' ');
+      const command = commandParts[0];
+
+      if (command.length > 0) {
+        term.writeln('');
+        if (command in commands) {
+          const param = commandParts.slice(1).join(' ');
+          commands[command].f(param);
+        } else {
+          console.log = function(x) {
+            term.writeln(x)
+          }
+
+          console.error = function(x) {
+            term.writeln(`\x1b[31;1m` + x)
+          }
+          eval(command)
+        }
+      }
+      term.prompt();
+    }
+
+    term.onData(e => {
+      switch (e) {
+        case '\u0003': // Ctrl+C
+          term.write('^C');
+          prompt(term);
+          break;
+        case '\r': // Enter
+          runCommand(term, command);
+          command = '';
+          break;
+        case '\u007F': // Backspace (DEL)
+          if (term._core.buffer.x > 2) {
+            term.write('\b \b');
+            if (command.length > 0) {
+              command = command.substr(0, command.length - 1);
+            }
+          }
+          break;
+        default:
+          if (e >= String.fromCharCode(0x20) && e <= String.fromCharCode(0x7E) || e >= '\u00a0') {
+            command += e;
+            term.write(e);
+          }
+      }
+    });
+
+    function prompt(term) {
+      command = '';
+      term.write('\r\n$ ');
+    }
+
+    let command = '';
+    runCommand(term, 'help');
+  });
+</script>
