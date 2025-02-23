@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GL Paint</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #f4f4f4; /* Light grey background */
+      font-family: 'Arial', sans-serif; /* More common sans-serif font */
+    }
+    #toolbar {
+      background: #333; /* Dark grey toolbar */
+      color: white; /* White text color for toolbar elements */
+      padding: 15px; /* Increased padding for more space */
+      display: flex;
+      align-items: center;
+      gap: 10px; /* Spacing between toolbar items */
+      border-bottom: 2px solid #555; /* Slightly darker border for definition */
+      border-radius: 8px 8px 0 0; /* Rounded corners at the top */
+    }
+    #toolbar label {
+      font-weight: bold; /* Make labels bold */
+    }
+    #toolbar button {
+      padding: 8px 12px; /* Button padding */
+      border: none;
+      border-radius: 5px;
+      background-color: #ddd; /* Light grey button background */
+      color: #333; /* Dark text for buttons */
+      cursor: pointer;
+      transition: background-color 0.3s ease; /* Smooth hover effect */
+    }
+    #toolbar button:hover {
+      background-color: #eee; /* Lighter grey on hover */
+    }
+    #toolbar input[type="color"] {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      width: 30px;
+      height: 30px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      background-color: transparent;
+      padding: 0;
+    }
+    #toolbar input[type="color"]::-webkit-color-swatch-wrapper {
+      padding: 0;
+    }
+    #toolbar input[type="color"]::-webkit-color-swatch {
+      border-radius: 3px;
+      border: 1px solid #ccc;
+    }
+    #toolbar input[type="color"]::-moz-color-swatch-wrapper {
+      padding: 0;
+    }
+    #toolbar input[type="color"]::-moz-color-swatch {
+      border-radius: 3px;
+      border: 1px solid #ccc;
+    }
+
+    #toolbar input[type="range"] {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      height: 8px;
+      background: #ddd;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #toolbar input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 15px;
+      height: 15px;
+      background-color: #666;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    #toolbar input[type="range"]::-moz-range-thumb {
+      -moz-appearance: none;
+      appearance: none;
+      width: 15px;
+      height: 15px;
+      background-color: #666;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+
+    #canvas {
+      border: 2px solid #ccc; /* Lighter border color */
+      display: block;
+      margin: 20px auto; /* Add some margin around the canvas */
+      cursor: crosshair;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+      border-radius: 5px; /* Optional: Rounded corners for canvas */
+      background-color: white; /* Ensure canvas background is white */
+    }
+    
+  </style>
+</head>
+<body>
+  <div id="toolbar">
+    <label for="colorPicker">Color:</label>
+    <input type="color" id="colorPicker" value="#000000">
+    <label for="brushSize">Brush Size:</label>
+    <input type="range" id="brushSize" min="1" max="50" value="5">
+    <button id="brushTool">Brush</button>
+    <button id="eraserTool">Eraser</button>
+    <button id="lineTool">Line</button>
+    <button id="clearCanvas">Clear</button>
+  </div>
+  <canvas id="canvas" width="800" height="600"></canvas>
+  
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const colorPicker = document.getElementById('colorPicker');
+    const brushSize = document.getElementById('brushSize');
+    const clearCanvas = document.getElementById('clearCanvas');
+    const brushTool = document.getElementById('brushTool');
+    const eraserTool = document.getElementById('eraserTool');
+    const lineTool = document.getElementById('lineTool');
+    
+    let painting = false;
+    let currentTool = 'brush'; // Default tool
+    let startX = 0;
+    let startY = 0;
+    
+    // Tool selection event listeners
+    brushTool.addEventListener('click', () => {
+      currentTool = 'brush';
+    });
+    eraserTool.addEventListener('click', () => {
+      currentTool = 'eraser';
+    });
+    lineTool.addEventListener('click', () => {
+      currentTool = 'line';
+    });
+    
+    // Handle mousedown event
+    canvas.addEventListener('mousedown', (e) => {
+      const rect = canvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      if (currentTool === 'line') {
+        // Record the starting point for the line tool
+        startX = x;
+        startY = y;
+      } else {
+        // For brush or eraser, start free drawing
+        painting = true;
+        draw(e);
+      }
+    });
+    
+    // Draw function for brush and eraser
+    function draw(e) {
+      if (!painting) return;
+      
+      const rect = canvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      ctx.lineWidth = brushSize.value;
+      ctx.lineCap = 'round';
+      // Use white color for eraser; otherwise, use the selected color
+      ctx.strokeStyle = currentTool === 'eraser' ? "#FFFFFF" : colorPicker.value;
+      
+      ctx.lineTo(x, y);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+    }
+    
+    // Handle mouseup event
+    canvas.addEventListener('mouseup', (e) => {
+      if (currentTool === 'line') {
+        const rect = canvas.getBoundingClientRect();
+        const endX = e.clientX - rect.left;
+        const endY = e.clientY - rect.top;
+        
+        ctx.beginPath();
+        ctx.lineWidth = brushSize.value;
+        ctx.lineCap = 'round';
+        ctx.strokeStyle = colorPicker.value;
+        ctx.moveTo(startX, startY);
+        ctx.lineTo(endX, endY);
+        ctx.stroke();
+      }
+      painting = false;
+      ctx.beginPath();
+    });
+    
+    // Handle mousemove event for brush/eraser only
+    canvas.addEventListener('mousemove', (e) => {
+      if (currentTool === 'brush' || currentTool === 'eraser') {
+        draw(e);
+      }
+    });
+    
+    // End drawing when mouse leaves the canvas
+    canvas.addEventListener('mouseout', () => {
+      painting = false;
+      ctx.beginPath();
+    });
+    
+    // Clear the canvas
+    clearCanvas.addEventListener('click', () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    });
+  </script>
+</body>
+</html>

@@ -1,176 +1,197 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Glitch - Contributers</title>
-    <script src="register-sw.js"></script>
-    <style>
-        body {
-            background-color: black;
-            color: white;
-            font-family: Arial, Helvetica, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
+  <meta charset="UTF-8"/>
+  <title>Glitch – Contributors</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png"/>
+  <link rel="stylesheet" href="stars.css"/>
+  
+  <!-- Google Tag Manager -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-278K4F012J"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-278K4F012J');
+  </script>
+  
+  <!-- Register the service worker -->
+  <script src="register-sw.js" defer></script>
 
-        h1, h2 {
-            font-family: 'Trebuchet MS', sans-serif;
-        }
+  <style>
+    /* Basic Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        #content {
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            margin: 0 auto;
-            max-width: 1200px;
-        }
+    body {
+      background-color: black;
+      color: white;
+      font-family: Arial, Helvetica, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+    
+    main {
+      width: 100%;
+      max-width: 1200px;
+      padding: 20px;
+      text-align: center;
+    }
+    
+    h1, h2 {
+      font-family: 'Trebuchet MS', sans-serif;
+    }
+    
+    /* Contributor List Styles */
+    .contributors-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+      margin-bottom: 40px;
+    }
 
-        .contributer {
-            background-color: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 10px;
-            margin: 10px;
-            text-align: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
+    .contributor {
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 10px;
+      width: 200px;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
 
-        .contributer:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 12px rgba(255, 255, 255, 0.3);
-        }
+    .contributor:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 12px rgba(255, 255, 255, 0.3);
+    }
 
-        .contributer img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            margin-bottom: 10px;
-        }
+    .contributor img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+    }
 
-        .contributer h2 {
-            margin: 0;
-        }
+    .contributor h2 {
+      margin: 0;
+      margin-bottom: 5px;
+    }
 
-        .contributer a {
-            color: white;
-            text-decoration: none;
-        }
+    .contributor a {
+      color: white;
+      text-decoration: none;
+    }
 
-        .contributer a:hover {
-            color: #3498db;
-        }
+    .contributor a:hover {
+      color: #3498db;
+    }
 
-        /* Honorable Mention Styling */
-        hr {
-            border: 0;
-            height: 2px;
-            background: gold;
-            margin: 20px auto;
-            width: 50%;
-        }
+    /* Honorable Mention */
+    .honorable-title {
+      color: gold;
+      text-decoration: underline;
+      text-shadow: 0 0 10px gold;
+      margin: 40px 0 20px;
+    }
 
-        h2.honorable {
-            color: gold;
-            text-decoration: underline;
-            text-shadow: 0 0 10px gold;
-            margin-top: 30px;
-        }
+    /* Memorial Section */
+    .memorial {
+      background: linear-gradient(145deg, rgba(0, 0, 0, 0.5), rgba(255, 215, 0, 0.2));
+      padding: 30px;
+      border-radius: 15px;
+      margin-top: 40px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+      width: 70%;
+      margin: 40px auto;
+    }
 
-        /* Memorial Section Styling */
-        .memorial {
-            background: linear-gradient(145deg, rgba(0, 0, 0, 0.5), rgba(255, 215, 0, 0.2));
-            padding: 30px;
-            border-radius: 15px;
-            margin-top: 40px;
-            text-align: center;
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
-            width: 70%;
-            margin: 0 auto;
-        }
+    .memorial h2 {
+      color: gold;
+      font-size: 2rem;
+      text-shadow: 0 0 15px gold;
+      margin-bottom: 10px;
+      animation: glow 2s infinite alternate;
+    }
 
-        .memorial h2 {
-            color: gold;
-            font-size: 2rem;
-            text-shadow: 0 0 15px gold;
-            margin-bottom: 10px;
-            animation: glow 2s infinite alternate;
-        }
+    .memorial p {
+      color: lightgray;
+      font-size: 1.2rem;
+      font-style: italic;
+      margin-bottom: 10px;
+    }
 
-        .memorial p {
-            color: lightgray;
-            font-size: 1.2rem;
-            font-style: italic;
-        }
+    .memorial img {
+      width: 200px;
+      height: auto;
+      border-radius: 10px;
+      margin-top: 20px;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+    }
 
-        .memorial img {
-            width: 200px;
-            height: auto;
-            border-radius: 10px;
-            margin-top: 20px;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
-        }
+    /* Glow Animation for Memorial Title */
+    @keyframes glow {
+      from {
+        text-shadow: 0 0 10px gold, 0 0 20px gold, 0 0 30px gold;
+      }
+      to {
+        text-shadow: 0 0 20px gold, 0 0 30px gold, 0 0 40px gold;
+      }
+    }
 
-        /* Glow Animation */
-        @keyframes glow {
-            from {
-                text-shadow: 0 0 10px gold, 0 0 20px gold, 0 0 30px gold;
-            }
-            to {
-                text-shadow: 0 0 20px gold, 0 0 30px gold, 0 0 40px gold;
-            }
-        }
+    /* Footer Link Styles */
+    footer h2 a {
+      color: white;
+      font-size: 1.2rem;
+      text-decoration: none;
+    }
+    footer h2 a:hover {
+      color: #3498db;
+    }
 
-        /* Footer Link Styling */
-        h2 a {
-            color: white;
-            font-size: 1.2rem;
-        }
-
-        h2 a:hover {
-            color: #3498db;
-        }
-
-    </style>
-    <link rel="icon" type="image/png" href="assets/favicon.png" />
-    <link rel="stylesheet" href="stars.css"/>
-    <script src="register-sw.js" defer></script>
-
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-278K4F012J"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-278K4F012J');
-    </script>
+  </style>
 </head>
 <body>
-    <center>
-        <h1>Contributers</h1>
-        <div id="content">
-            <div class="contributer">
-                <img src="assets/images/minion.png" />
-                <h2>Minionfan105</h2>
-            </div>
-<br>
-    <h2 class="honorable">Honorable Mention</h2>
-    <br>
-    <div class="contributer">
-                <img src="assets/images/infamy.png" />
-                <h2>Infamy / Enterheadlines</h2>
-            </div>
-        </div>
-        
-        <h2><a href="./main.html">Go back to home</a></h2>
+  <header>
+    <h1>Contributors</h1>
+  </header>
 
-        <div class="memorial">
-            <h2> Ok_criticism </h2>
-            <p>The god of being 𝓯𝓻𝓮𝓪𝓴𝔂 ( and funny ). Rest in peace </p>
-            <p>??? - 2024</p>
-            <img src="assets/images/crit.png" alt="Ok_criticism">
-        </div>
-    </center>
+  <main>
+    <section class="contributors-container">
+      <!-- Primary Contributor -->
+      <div class="contributor">
+        <img src="assets/images/minion.png" alt="Minionfan105"/>
+        <h2>Minionfan105</h2>
+      </div>
+    </section>
+
+    <!-- Honorable Mention -->
+    <h2 class="honorable-title">Honorable Mention</h2>
+    <section class="contributors-container">
+      <div class="contributor">
+        <img src="assets/images/infamy.png" alt="Infamy / Enterheadlines"/>
+        <h2>Infamy / Enterheadlines</h2>
+      </div>
+    </section>
+
+    <!-- Memorial Section -->
+    <section class="memorial">
+      <h2>Ok_criticism</h2>
+      <p>The god of being 𝓯𝓻𝓮𝓪𝓴𝔂 (and funny). Rest in peace lad.</p>
+      <p>??? - 2024</p>
+      <img src="assets/images/crit.png" alt="Ok_criticism"/>
+    </section>
+  </main>
+
+  <footer>
+    <h2><a href="./main.html">Go back to home</a></h2>
+  </footer>
 </body>
 </html>

@@ -1,414 +1,427 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Glitch - Home</title>
-    
-  <script src="uv/uv.bundle.js" defer></script>
-  <script src="uv/uv.config.js" defer></script>
-    <link rel="icon" href="assets/favicon.png" type="image/png">
-    <style>body {overflow: hidden;}</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glitch V8</title>
+    <link rel="icon" href="/assets/favicon.png" type="image/png">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+body {
+    margin: 0;
+    overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
+    background-image: url("assets/images/wallpaper.webp");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    display: flex; /* Flexbox for layout */
+    flex-direction: column; /* Stack elements vertically */
+    height: 100vh; /* Full viewport height */
+}
 
-    <script>
-      document.addEventListener("DOMContentLoaded",async function(){
-        await navigator.serviceWorker.register('sw.js');
-      })
+html {
+    overflow: hidden;
+}
 
-    </script>
+html::-webkit-scrollbar, body::-webkit-scrollbar {
+    display: none;
+}
 
-    <link rel="stylesheet" type="text/css" href="scripts/css/global.css">
-    
+html::-webkit-scrollbar, body::-webkit-scrollbar {
+    display: none;
+}
+
+.window {
+    border: 1px solid rgba(255, 255, 255, 0.25); /* Slightly brighter border for glass effect */
+    position: absolute;
+    width: 450px;
+    height: 350px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Softer, more spread out shadow */
+    background-color: rgba(255, 255, 255, 0.1); /* Lighter, more translucent background for glass */
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05)); /* More pronounced top highlight */
+    backdrop-filter: blur(10px); /* Glass blur effect */
+    -webkit-backdrop-filter: blur(10px); /* For Safari */
+    resize: both;
+    overflow: auto;
+    top: 15vh;
+    left: 15vw;
+    border-radius: 10px; /* Slightly less rounded corners, more Aero-like */
+    scrollbar-width: thin; /* For Firefox scrollbar */
+    scrollbar-color: rgba(255, 255, 255, 0.3) rgba(0, 0, 0, 0.1); /* Firefox scrollbar styling */
+    -ms-overflow-style: auto; /* Default scrollbar for IE/Edge */
+    padding-bottom: 10px; /* Slightly reduced padding */
+}
+
+.window::-webkit-scrollbar {
+    width: 8px; /* Thin scrollbar for Webkit */
+}
+
+.window::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0.1); /* Darker scrollbar track */
+    border-radius: 10px;
+}
+
+.window::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.3); /* Lighter scrollbar thumb */
+    border-radius: 10px;
+}
+
+
+
+.window-header {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgba(255, 255, 255, 0.2); /* Lighter header background */
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1)); /* Stronger header highlight */
+    color: #f0f0f0;
+    cursor: move;
+    padding: 8px 12px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Brighter header border */
+}
+
+.window-title {
+    flex-grow: 1;
+    font-size: 1em; /* Slightly smaller title */
+    font-weight: bold; /* Bold title for better readability */
+    color: #913dc2; /* Inverted font color */
+}
+
+.btn {
+    background: none;
+    border: none;
+    padding: 5px; /* Slightly smaller button padding */
+    cursor: pointer;
+    color: #913dc2; /* Slightly brighter button text */
+    opacity: 0.8; /* Slightly transparent buttons */
+    transition: opacity 0.2s ease; /* Smooth opacity transition */
+}
+
+.btn:hover {
+    opacity: 1; /* Fully opaque on hover */
+}
+
+.window-content {
+    padding: 12px; /* Slightly reduced content padding */
+    color: #eee; /* Slightly brighter content text */
+    line-height: 1.5; /* Slightly tighter line height */
+    font-size: 0.95em; /* Slightly smaller font size */
+}
+
+.window-content iframe {
+    border-radius: 10px; /* Adjust the value to control the roundness */
+    overflow: hidden; /* Ensure content within rounded corners is clipped */
+}
+
+
+.toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px; /* Slightly taller toolbar */
+    background-color: rgba(255, 255, 255, 0.15); /* Slightly less transparent */
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.08), transparent); /* More subtle gradient */
+    color: #fff;
+    padding: 0 15px;
+    position: fixed;
+    bottom: 0;
+    user-select: none;
+    z-index: 10000;
+    width: calc(98% + 10px);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15); /* More visible border */
+    backdrop-filter: blur(10px); /* Apply blur to background */
+}.start-menu.material-symbols-outlined {
+    font-size: 30px; /* Larger icons */
+    cursor: pointer;
+    transition: transform 0.2s ease; /* Smooth icon animation */
+}.start-menu.material-symbols-outlined:hover {
+    transform: scale(1.1); /* Slight zoom on hover */
+}.pinned-apps {
+    display: flex;
+    gap: 12px; /* Larger gap */
+}
+.pinned-apps span.material-symbols-outlined {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    padding: 8px;
+}
+
+.pinned-apps.material-symbols-outlined {
+    font-size: 30px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}.pinned-apps.material-symbols-outlined:hover {
+    transform: scale(1.1);
+}.system-tray {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Larger gap */
+}.system-tray.material-symbols-outlined {
+    font-size: 22px; /* Slightly larger icons */
+    cursor: pointer;
+}.time {
+    font-size: 18px; /* Larger font size */
+    position: fixed;
+    right: 20px;
+    color: #fff;
+    font-weight: 500; /* Slightly bolder */
+}
+
+.pinned-apps input {
+    background-color: rgba(255, 255, 255, 0.1); /* Slightly transparent white background */
+    border: none; /* Remove default border */
+    border-radius: 15px; /* Rounded corners */
+    padding: 8px 12px; /* Padding for comfortable text input */
+    color: white; /* White text color */
+    font-size: 16px; /* Readable font size */
+    flex-grow: 1; /* Allow input to grow and take available space */
+    min-width: 100px; /* Minimum width to prevent collapsing */
+}
+
+.pinned-apps input::placeholder {
+    color: rgba(255, 255, 255, 0.5); /* Semi-transparent placeholder text */
+}
+#search_suggestions {
+    position: absolute;
+    top: 100%;
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Adjust for element's width */
+    width: 100%; /* Match input width */
+    background-color: #1e1e1e; /* Slightly lighter than toolbar */
+    color: white;
+    border-radius: 0 0 15px 15px; /* Rounded bottom corners */
+    padding: 10px;
+    z-index: 100; /* Ensure it's above other elements */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    display: none; /* Initially hide the suggestions */
+}
+
+#search_suggestions ul {
+    list-style: none; /* Remove bullet points */
+    padding: 0;
+    margin: 0;
+}
+
+#search_suggestions li {
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+#search_suggestions li:hover {
+    background-color: #3a3a3a; /* Hover effect */
+}
+
+/* Style for the window - adjust selector if needed */
+.window {
+  overflow: hidden;
+}
+
+/* Remove rounding when maximized for window */
+.window.maximized-no-round {
+  border-radius: 0;
+}
+
+/* Remove top left-right rounding when maximized for toolbar */
+.toolbar.maximized-no-round {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+</style>
 </head>
 <body>
-    <div id="app">
-        <div id="toolbar">
-            <style>
-
-
-#modal-wrapper {
-	position: fixed;
-	width: 100%;
-	height: 100%;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	background: rgba(0, 0, 0, 0.2);
-	text-align: center;
-	padding-top: 30px;
-	opacity: 0;
-	transition: 0.5s ease all;
-	z-index: 99999;
-}
-
-#modal-wrapper.active {
-	opacity: 1;
-}
-
-#modal-wrapper.active #modal-confirmation {
-	margin-top: 0;
-	opacity: 1;
-}
-
-#modal-confirmation {
-	display: inline-block;
-	margin-top: -30px;
-	opacity: 0;
-	max-width: 400px;
-	border-radius: 4px;
-	overflow: hidden;
-	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-	background: #fff;
-	text-align: left;
-	transition: 0.5s ease all;
-}
-
-#modal-header {
-	position: relative;
-	background: #ff6b6b;
-	padding: 15px;
-	color: #fff;
-	text-align: left;
-}
-
-#modal-header h3 {
-	font-weight: 300;
-	margin: 0;
-}
-
-#modal-close {
-	position: absolute;
-	right: 15px;
-	top: 12px;
-	font-size: 1.5em;
-	cursor: pointer;
-	color: #bd3d3d;
-}
-
-#modal-close:hover {
-	color: #fff;
-}
-
-#modal-content {
-	padding: 30px 15px;
-}
-
-#modal-content p {
-	margin: 0;
-	color: #61686e;
-}
-
-#modal-buttons {
-	padding: 0 15px 15px 15px;
-	text-align: right;
-}
-
-#modal-button-no {
-	border: 2px solid #98a1a9;
-	padding: 10px 30px;
-	background: #fff;
-	color: #98a1a9;
-	font-weight: bold;
-	border-radius: 4px;
-	cursor: pointer;
-	transition: 0.5s ease all;
-}
-
-#modal-button-no:hover {
-	background: #98a1a9;
-	color: #fff;
-}
-
-#modal-button-yes {
-	border: 2px solid #ff6b6b;
-	padding: 10px 50px;
-	background: #ff6b6b;
-	color: #fff;
-	font-weight: bold;
-	border-radius: 4px;
-	cursor: pointer;
-	transition: 0.5s ease all;
-	margin-left: 10px;
-}
-
-#modal-button-yes:hover {
-	border: 2px solid #ff4242;
-	background: #ff4242;
-}
-                .material-symbols-outlined {
-                    transition: background-color 0.3s, transform 0.3s;
-        }
-        
-        .material-symbols-outlined:hover {
-          transition: transform 0.2s, box-shadow 0.2s; /* Smoother transitions */
-          transform: scale(1.15); /* Subtle scaling effect */
-          box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* Deeper shadow on hover */
-        }
-        
-            </style>
-        
+  <div id="search_suggestions">
+    <ul>
+        <li>Example Suggestion 1</li>
+        <li>Example Suggestion 2</li>
+        <li>Example Suggestion 3</li>
+    </ul>
+  </div>
+    <div class="toolbar">
+        <div class="start-menu" onclick="openApp('dash')">
+            <span class="material-symbols-outlined">circle</span>
+        </div>
+        <div class="pinned-apps">
+            <input placeholder="Search" id="searchInput">
+            <span class="material-symbols-outlined" onclick="openApp('terminal')">terminal</span>
+            <span class="material-symbols-outlined" onclick="openApp('web')">public</span>
+            <span class="material-symbols-outlined" onclick="openApp('game')">sports_esports</span>
+            <span class="material-symbols-outlined" onclick="openApp('glpaint')">brush</span>
+            <span class="material-symbols-outlined" onclick="openApp('gpt')">robot</span>
+            <span class="material-symbols-outlined" onclick="openApp('tv')">tv</span>
+            <span class="material-symbols-outlined" onclick="openApp('settings')">settings</span>
+        </div>
+        <div class="system-tray">
+            <div id="clock" class="time"></div>
         </div>
     </div>
-    <br>
+    <script>let zIndexCounter = 1000; // Start with a high z-index value
 
-    <div id="content">
-        <center>
-            <br>
-            <br>
-            <br>
-            <h1 style="font-size: 80px;">Glitch</h1>
-            <br>
+function createWindow(id, title, content) {
+    const windowElement = document.createElement('div');
+    windowElement.className = 'window';
+    windowElement.id = id * Math.random() * 120
+    windowElement.style.zIndex = ++zIndexCounter;
 
-            <div id="toolbar">
-  
-              <img src="assets/images/logo_trans.png" id="glitch-logo" alt="Glitch">
-              <div id="nav-links">
-                  <div id="separator"></div>
-                  
-                  <div onclick="window.location.href = 'main.html'"  style="display: flex;">
-                  <span class="material-symbols-outlined">home</span>
-                  <h3 onclick="window.location.href = 'main.html'">Home</h3>
-                  </div>
-                  <h3>/</h3> 
-                  
-                  <div onclick="window.location.href = 'apps.html'" style="display: flex;">
-                  <span class="material-symbols-outlined">apps</span>
-                  <h3 >Apps</h3>
-                </div>
-                  <h3>/</h3>
-                  <div onclick="window.location.href = 'chat.html'"  style="display: flex;">
-                  <span class="material-symbols-outlined">chat</span>
-                  <h3>Chat</h3>
-                </div>
-                <h3>/</h3>
-                
-                <div onclick="window.location.href = 'abtbrw.html'"  style="display: flex;">
-          
-                  <span class="material-symbols-outlined">window</span>
-                  <h3>Windows</h3>
-                </div>
-                  <h3>/</h3>
-                  <div onclick="window.location.href = 'settings.html'" style="display: flex;">
-                  <span class="material-symbols-outlined" style="font-variation-settings: filled;">settings</span>
-                  <h3 >Settings</h3>
-                </div>
-                  <h3>|</h3>
-                  <h3 id="time">hai</h3>
-              </div>
-              <script>
-              function updateTime() {
-          const timeElement = document.getElementById('time');
-          if (!timeElement) return;
-          
-          const now = new Date();
-          let hours = now.getHours();
-          const minutes = now.getMinutes();
-          const ampm = hours >= 12 ? 'PM' : 'AM';
-          
-          hours = hours % 12;
-          hours = hours ? hours : 12;
-          const minutesStr = minutes < 10 ? '0' + minutes : minutes;
-          
-          const timeStr = `${hours}:${minutesStr} ${ampm}`;
-          timeElement.textContent = timeStr;
-          }
-          
-          setInterval(updateTime, 5000);
-          updateTime(); 
-              </script>
-          </div>
+    const header = document.createElement('div');
+    header.className = 'window-header';
+    const titleElement = document.createElement('span');
+    titleElement.textContent = title;
+    titleElement.className = 'window-title';
+    header.appendChild(titleElement);
 
-            <div class="tos-notification" style="display: none; ">
-                <div class="tos-content" style="color: black; text-align: left; padding: 20px; background-color: #fff; border-radius: 10px; width: 70%;">
-                    <h2>Welcome!</h2>
-                    <p>
-                        Welcome to Glitch! The proxy that knows <b>NOTHING</b> about you. 
+    const minimizeBtn = document.createElement('button');
+    minimizeBtn.textContent = '_';
+    minimizeBtn.className = 'btn minimize';
+    header.appendChild(minimizeBtn);
 
-                        <br>
+    const maximizeBtn = document.createElement('button');
+    maximizeBtn.textContent = '□';
+    maximizeBtn.className = 'btn maximize';
+    header.appendChild(maximizeBtn);
 
-                    </p>
-                    <p>
-                        Our TOS is available <a href="tos.md">here</a>.
-                        By using any Glitch service on or after the publication of these terms, you acknowledge and accept these terms.
-                    </p>
-                    <p>
-                        <button class="close-tos-btn" style="background-color: #131313; color: white; padding: 10px; border: none; border-radius: 5px;">I Agree</button>
-                    </p>
-                </div>
-            </div>
-            <div class="container">
-                <div class="searchInput">
+    const closeBtn = document.createElement('button');
+    closeBtn.textContent = '×';
+    closeBtn.className = 'btn close';
+    header.appendChild(closeBtn);
 
-                    <input id="search" placeholder="Search..." type="text" style="width: 70%; height: 25px; background-color: #131313; border: none; padding: 15px; color: white; border-radius: 20px;"/>
-            
+    windowElement.appendChild(header);
 
-                  <div class="resultBox">
-                    <!-- here list are inserted from javascript -->
-                  </div>
-<span class="material-symbols-outlined" style="right: 15%; bottom: calc(45% - 10px); position: absolute;">search</span>
-                </div>
-              </div>
-            <br>
+    const contentElement = document.createElement('div');
+    contentElement.className = 'window-content';
+    contentElement.style.height = 'calc(100% - 30px)'; // Adjust height to take into account header height
+    contentElement.innerHTML = content;
+    windowElement.appendChild(contentElement);
 
-            <button class="main_button" onclick="window.location='https://discord.gg/mWGtwnyjgK'">Get more links</button>   
-            <button class="main_button" onclick="window.location='contributers.html'">Contributers</button>   
-            <button class="main_button" onclick="window.location='launch.html?url=lucidity-ai.onrender.com/chat.html'">AI Chat</button>   
-            
-            <br>
-            <br>
-            <center>              
-            </div>
-            </center>
+    document.body.appendChild(windowElement);
 
-
-            </div>
-        </center>
-
-        <div style="position: fixed; right: 35px; bottom: 25px;">
-
-
-
-            <h2 style="color: rgb(50, 141, 245);" onclick="window.location='premium.html'">Premium</h2></div>
-    </div>
-
-    <script>
-
-if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/BlackBerry/i) || navigator.userAgent.match(/Windows Phone/i)) {
-  window.location = "features/mobile.html";
+    addWindowFunctionality(windowElement, header);
+    return windowElement;
 }
 
-    
-    
-
-
-
-// load()
-         
-
-
-
-        document.addEventListener("DOMContentLoaded", function() {
-            document.addEventListener("keypress", function(e) {
-                if (e.key === "Enter") {
-                    window.location = ("launch.html?url=" + document.getElementById("search").value);
-                }
-            });
-
-
-            // Check if this is the first time visiting
-            if (!localStorage.getItem("first_time_visiting")) {
-                document.querySelector(".tos-notification").style.display = 'block';
+document.getElementById('searchInput').addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+        const searchQuery = this.value;
+        const url = 'launch.html?url=' + encodeURIComponent(searchQuery);
+        createWindow(Math.random().toString(36).substring(2, 15), 'Tabs', `<iframe src="${url}" style="border:0; flex-grow:1; width:100%; height:100%;"></iframe>`);
+    }
+});
+function addWindowFunctionality(windowElement, header) {
+    let isDragging = false, offsetX, offsetY;
+    header.onmousedown = function(event) {
+        isDragging = true;
+        offsetX = event.clientX - windowElement.offsetLeft;
+        offsetY = event.clientY - windowElement.offsetTop;
+        document.onmousemove = function(event) {
+            if (isDragging) {
+                windowElement.style.left = `${event.clientX - offsetX}px`;
+                windowElement.style.top = `${event.clientY - offsetY}px`;
             }
+        };
+        document.onmouseup = function() {
+            isDragging = false;
+            document.onmousemove = document.onmouseup = null;
+        };
+    };
 
-            // Add event listener to TOS close button
-            document.querySelector(".close-tos-btn").addEventListener('click', function() {
-                document.querySelector(".tos-notification").style.display = 'none';
-                localStorage.setItem("first_time_visiting", "1");
-            });
-        });
+    windowElement.querySelector('.minimize').onclick = function() {
+        const content = windowElement.querySelector('.window-content');
+        windowElement.style.height = content.style.display === 'none' ? '300px' : '30px';
+        content.style.display = content.style.display === 'none' ? 'block' : 'none';
+    };
 
+    windowElement.querySelector('.maximize').onclick = function() {
+        if (windowElement.classList.contains('maximized')) {
+            windowElement.classList.remove('maximized');
+            windowElement.classList.remove('maximized-no-round'); // Remove class for no rounding
+            windowElement.style.width = '400px';
+            windowElement.style.height = '300px';
+            windowElement.style.left = '100px';
+            windowElement.style.top = '100px';
+        } else {
+            windowElement.classList.add('maximized');
+            windowElement.classList.add('maximized-no-round'); // Add class for no rounding
+            windowElement.style.width = '100vw';
+            windowElement.style.height = '93%';
+            windowElement.style.left = '0';
+            windowElement.style.top = '0';
+        }
+    };
 
-       
-        let suggestions = [
-    
-];
-
-// getting all required elements
-const searchInput = document.querySelector(".searchInput");
-const input = searchInput.querySelector("input");
-const resultBox = searchInput.querySelector(".resultBox");
-const icon = searchInput.querySelector(".icon");
-let linkTag = searchInput.querySelector("a");
-let webLink;
-
-
-    let search_engine_preference = localStorage.getItem("search_engine");
-    let search_engine = "https://www.google.com/search?q="; // Default search engine
-    const proxy_bridge = localStorage.getItem("proxy");
-    const premium_status = localStorage.getItem("premium") === "true";
-
-
-    // Set search engine based on preference
-    if (search_engine_preference) {
-      switch (search_engine_preference) {
-        case "Google":
-          search_engine = "https://www.google.com/search?q=";
-          break;
-        case "DuckDuckGo":
-          search_engine = "https://duckduckgo.com/?q=";
-          break;
-        case "Bing":
-          search_engine = "https://www.bing.com/search?q=";
-          break;
-        case "Yahoo":
-          search_engine = "https://search.yahoo.com/search?p=";
-          break;
-        case "Torry":
-          search_engine = premium_status ? "https://www.torry.io/search/?type=oniontab&searchby_type=1&page=1&q=" : "https://www.google.com/search?q=";
-          break;
-        case "Startpage":
-          search_engine = premium_status ? "https://www.startpage.com/do/search?query=" : "https://www.google.com/search?q=";
-          break;
-        case "Qwant":
-          search_engine = premium_status ? "https://www.qwant.com/?t=web&q=" : "https://www.google.com/search?q=";
-          break;
-        case "Brave":
-          search_engine = premium_status ? "https://search.brave.com/search?q=" : "https://www.google.com/search?q=";
-          break;
-        case "Google Scholar":
-          search_engine = premium_status ? "https://scholar.google.com/scholar?q=" : "https://www.google.com/search?q=";
-          break;
-        default:
-          search_engine = "https://www.google.com/search?q=";
-          search_engine_preference = "Google"
-          break;
-      }
-
+    windowElement.querySelector('.close').onclick = function() {
+        document.body.removeChild(windowElement);
+    };
+}
+function openApp(app){
+    if (app == "game"){
+        createWindow(Math.random().toString(36).substring(2, 15), 'Games', '<iframe src="apps.html" style="border:0; flex-grow:1; width:100%; height:100%;"></iframe>', true);
     }
-    else{
-        search_engine = "https://www.google.com/search?q=";
-          search_engine_preference = "Google"
-      }
-
-// if user press any key and release
-input.onkeyup = (e)=>{
-    let userData = e.target.value; //user enetered data
-    let emptyArray = [];
-    if(userData){
-        fetch("/search_complete/" + encodeURIComponent(userData))
-  .then(response => response.text())
-  .then(data => {
-    jsonData = JSON.parse(data);
-    suggestions = jsonData[1]; // Assuming the suggestions are in the second element of the JSON response
-  });
-        emptyArray = suggestions.filter((data)=>{
-            //filtering array value and user characters to lowercase and return only those words which are start with user enetered chars
-            return data.toLocaleLowerCase().startsWith(userData.toLocaleLowerCase()); 
-        });
-        emptyArray = emptyArray.map((data)=>{
-          preset = localStorage.getItem("autohide_preset") || "Google Classroom";
-          // passing return data inside li tag
-            return data = `<li onclick="window.location='launch.html?url=${encodeURIComponent(search_engine+data)}'">`+ data + " - <span style='filter: opacity(0.4);'>"+ search_engine_preference +" Search</span>" +'</li>';
-        });
-        searchInput.classList.add("active"); //show autocomplete box
-        showSuggestions(emptyArray);
-        
-    }else{
-        searchInput.classList.remove("active"); //hide autocomplete box
+    else if (app == "web"){
+        createWindow(Math.random().toString(36).substring(2, 15), 'Tabs', '<iframe src="launch.html" style="border:0; flex-grow:1; width:100%; height:100%;"></iframe>', true);
+    }
+    else if (app == "discord"){
+        createWindow(Math.random().toString(36).substring(2, 15), 'Discord', '<iframe src="/assets-images/backgrounds/aHZ0cnM4JTJGLWRrc2FvcGQlMkNjbW0tYXFzZ3RxJTJGJTYwOSUzQjk3NTA1YzUwZGE1JTNBYWdjZDUlMkNzdGc%3D" style="border:0; flex-grow:1; width:100%; height:100%;"></iframe>', true);
+    }
+    else if (app == "terminal"){
+      createWindow(Math.random().toString(36).substring(2, 15), 'Terminal', '<iframe src="/features/terminal.html" style="border:0; flex-grow:1; width:100%; height:100%;"></iframe>', true);  
+    }
+    else if (app == "glpaint"){
+        createWindow(Math.random().toString(36).substring(2, 15), 'GL Paint', '<iframe src="/features/glpaint.html" style="border:0; flex-grow:1; width:100%; height:100%;"></iframe>', true);
+    }
+    else if (app == "dash"){
+      createWindow(Math.random().toString(36).substring(2, 15), 'Dashboard', '<iframe src="/features/dashboard.html" style="border:0; flex-grow:1; width:100%; height:100%;"></iframe>', true);  
+    }
+    else if (app == "settings"){
+        createWindow(Math.random().toString(36).substring(2, 15), 'Settings', '<iframe src="/settings.html" style="border:0; flex-grow:1; width:100%; height:100%;"></iframe>', true);  
+    }
+    else if (app == "settings"){
+        createWindow(Math.random().toString(36).substring(2, 15), 'Settings', '<iframe src="/settings.html" style="border:0; flex-grow:1; width:100%; height:100%;"></iframe>', true);  
+    }
+    else if (app == "gpt"){
+        //https://deepseek.net/chat
+        createWindow(Math.random().toString(36).substring(2, 15), 'ChatGPT', '<iframe src="/launch_page.html?url=https://deepai.org/chat/free-chatgpt" style="border:0; flex-grow:1; width:100%; height:100%;"></iframe>', true);  
+    }
+    else if (app == "tv"){
+        createWindow(Math.random().toString(36).substring(2, 15), 'Swiftly TV', '<iframe src="/launch_page.html?url=https://swifly.cloud/movies.html" style="border:0; flex-grow:1; width:100%; height:100%;"></iframe>', true);  
     }
 }
 
-function showSuggestions(list){
-    let listData;
-    if(!list.length){
-        userValue = document.getElementById('search').value;
-        listData = '<li>'+ userValue +'</li>';
-    }else{
-        listData = list.join('');
-    }
-    resultBox.innerHTML = listData;
+
+
+// script.js
+
+function updateTime() {
+    const now = new Date();
+    let hours = now.getHours();
+    const minutes = now.getMinutes();
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    const strTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')} ${ampm}`;
+    document.getElementById('clock').textContent = strTime;
 }
 
-    </script>
-    <script src="scripts/js/global.js"></script>
+setInterval(() => {
+    const wallpaper = localStorage.getItem('wallpaper');
+    if (wallpaper === undefined) {
+        document.body.style.backgroundImage = `url('assets/images/wallpaper.webp')`;
+    } else if (wallpaper) {
+        document.body.style.backgroundImage = `url('${wallpaper}')`;
+    }
+}, 1000);
+const wallpaper = localStorage.getItem('wallpaper');
+if (wallpaper === undefined) {
+    document.body.style.backgroundImage = `url('assets/images/wallpaper.webp')`;
+} else if (wallpaper) {
+    document.body.style.backgroundImage = `url('${wallpaper}')`;
+}
+updateTime(); // initial call to display time immediately
+</script>
 </body>
 </html>

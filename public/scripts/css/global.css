@@ -1,153 +1,189 @@
-/* le font */
+/* LET'S MAKE THIS LOOK AMAZING! ✨ */
+
+/* Import fonts - Keeping the provided fonts, they are a good base */
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
-/* oh lets also import https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100 */
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100&display=swap,FILL,GRA');
+
+/* -------------------------------------------------- */
+/* ✨ Root Variables -  THEME CUSTOMIZATION ✨ */
+/* -------------------------------------------------- */
 :root {
-  /* Define common colors and dimensions here for easy theming and adjustments */
-  --background-color-main: #212121;
-  --background-color-toolbar: #131313;
-  --text-color: #fff;
-  --toolbar-top: 10px;
-  --toolbar-horizontal-padding: 5px;
-  --toolbar-radius: 15px;
-  --toolbar-height: 60px;
-  --link-margin: 20px;
-  --separator-width: 5px;
-  --separator-height: 30px;
+  /* Brand Colors - Sea Inspired, but Modern and Darker */
+  --brand-color-primary: #00BCD4; /* Cyan Accent -  A bit brighter */
+  --brand-color-secondary: #008394; /* Darker Cyan - For subtle accents */
+  --brand-gradient-start: #004A5A; /* Deep Teal Start */
+  --brand-gradient-end: #002E38;   /* Even Deeper Teal End */
+
+  /* Neutral Tones - Dark and Elegant */
+  --background-color-main: #181818; /* Darker Main Background */
+  --background-color-toolbar: #222; /* Slightly Lighter Toolbar */
+  --text-color-primary: #F0F0F0;   /* Off-White for Primary Text */
+  --text-color-secondary: #AAAAAA; /* Grey for Secondary Text/Hints */
+  --separator-color: #444;        /* Darker Separator */
+
+  /* UI Elements - Consistent Spacing and Radius */
+  --toolbar-top: 20px;            /* More Top Spacing */
+  --toolbar-horizontal-padding: 20px; /* More Padding for Breathing Room */
+  --toolbar-radius: 25px;          /* Softer Toolbar Corners */
+  --toolbar-height: 70px;          /* Taller Toolbar for Prominence */
+  --link-margin: 25px;             /* Spacing between Nav Links */
+  --separator-width: 1px;         /* Thinner Separator Line */
+  --separator-height: 24px;        /* Adjusted Separator Height */
+  --border-radius-base: 8px;       /* General Border Radius for Buttons, Inputs */
+  --input-padding-vertical: 12px;  /* Vertical Padding for Inputs */
+  --input-padding-horizontal: 15px; /* Horizontal Padding for Inputs */
+  --button-padding-vertical: 14px; /* Vertical Button Padding */
+  --button-padding-horizontal: 25px;/* Horizontal Button Padding */
+  --shadow-color: rgba(0, 0, 0, 0.3); /* Shadow for Depth */
 }
 
+
+/* -------------------------------------------------- */
+/* ✨ Base Styles -  Body and Font ✨ */
+/* -------------------------------------------------- */
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Source Sans 3', arial;
+  font-family: 'Source Sans 3', arial, sans-serif; /* Added sans-serif fallback */
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(to bottom, #00c6ff, #0072ff); /* Sea-like gradient */
+  background: linear-gradient(to bottom, var(--brand-gradient-start), var(--brand-gradient-end)); /* Darker Sea Gradient */
   background-size: cover;
   background-attachment: fixed;
-  color: var(--text-color);
+  color: var(--text-color-primary);
   min-height: 100vh;
-
-
-background: hsla(241, 100%, 66%, 1);
-
-background: linear-gradient(90deg, hsla(241, 100%, 66%, 1) 0%, hsla(0, 100%, 73%, 1) 100%);
-
-background: -moz-linear-gradient(90deg, hsla(241, 100%, 66%, 1) 0%, hsla(0, 100%, 73%, 1) 100%);
-
-background: -webkit-linear-gradient(90deg, hsla(241, 100%, 66%, 1) 0%, hsla(0, 100%, 73%, 1) 100%);
-
-filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#5350FF", endColorstr="#FF7777", GradientType=1 );
+  overflow-x: hidden; /* Prevent horizontal scrollbar */
 }
 
 
+/* -------------------------------------------------- */
+/* ✨ Toolbar -  Navigation Bar ✨ */
+/* -------------------------------------------------- */
 #toolbar {
   position: fixed;
   top: var(--toolbar-top);
-  left: 5%;
-  right: 5%;
-  color: white;
+  left: 8%; /* Slightly more inset */
+  right: 8%; /* Slightly more inset */
   height: var(--toolbar-height);
-  padding: var(--toolbar-horizontal-padding);
+  padding: 0 var(--toolbar-horizontal-padding); /* Only horizontal padding */
   z-index: 15;
   border-radius: var(--toolbar-radius);
   background-color: var(--background-color-toolbar);
   display: flex;
   align-items: center;
-  border-style: solid;
-  border-width: 0; /* Ensure borders are not visible by default */
-  border-image-slice: 1;
-  animation: shrink 0.8s both;
+  justify-content: space-between; /* Distribute space for better layout */
+  border: none; /* Removed default border */
+  box-shadow: 0 5px 15px var(--shadow-color); /* Subtle shadow for lift */
+  animation: shrink 0.8s both; /* Keep shrink animation, might be useful */
+}
+
+#glitch-logo {
+  width: auto; /* Make logo responsive if needed */
+  height: 50px; /* Adjust logo height */
+  position: relative; /* Remove absolute positioning for better flow */
+  left: 0; /* Reset left if no longer absolute */
+  margin-right: auto; /* Push logo to the left and nav links to the right */
 }
 
 #nav-links {
   display: flex;
-  margin-left: auto; /* Ensures nav links are positioned towards the right */
+  align-items: center; /* Vertically center links */
+  margin-left: 0; /* Reset margin and use space-between on toolbar */
 }
 
 #nav-links h3 {
   cursor: pointer;
   margin: 0 var(--link-margin);
-  transition: background-color 0.3s, transform 0.3s;
+  transition: color 0.3s, transform 0.3s; /* Smooth color transition */
+  color: var(--text-color-primary); /* Primary text color for links */
+  font-weight: 500; /* Slightly bolder link text */
 }
 
 #nav-links h3:hover {
-  transition: transform 0.2s, box-shadow 0.2s; /* Smoother transitions */
-  transform: scale(1.15); /* Subtle scaling effect */
-  box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* Deeper shadow on hover */
+  color: var(--brand-color-primary); /* Brighter color on hover */
+  transform: scale(1.05); /* Subtle scale on hover */
+  text-shadow: 0 3px 5px var(--shadow-color); /* Text shadow on hover */
 }
 
 .separator {
-  border-left: 1px solid var(--text-color);
+  border-left: var(--separator-width) solid var(--separator-color); /* Use variable for separator color */
   height: var(--separator-height);
   margin: 0 var(--link-margin);
+  opacity: 0.6; /* Slightly faded separator */
 }
 
-#nav-links h3 {
-  margin: 0 var(--link-margin); /* Updated to remove only left margin */
-}
 
-#glitch-logo {
-  width: 69px;
-  position: absolute;
-  left: var(--toolbar-horizontal-padding);
-}
-
+/* -------------------------------------------------- */
+/* ✨ Search Input (Toolbar) - Integrated & Sleek ✨ */
+/* -------------------------------------------------- */
 #toolbar input {
-  background-color: #474747;
-  border-radius: 10px;
+  background-color: #333; /* Darker input background */
+  border-radius: var(--border-radius-base);
   border: none;
-  color: var(--text-color);
-  padding: 10px; /* Increased padding for better visibility */
-  width: calc(100% - 30px); /* Adjust width to consider padding and margins */
+  color: var(--text-color-primary);
+  padding: var(--input-padding-vertical) var(--input-padding-horizontal);
+  width: 40%; /* Control input width within toolbar */
+  min-width: 150px; /* Minimum width for input */
+  font-size: 1rem; /* Consistent font size */
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.2); /* Inner shadow for depth */
 }
 
+#toolbar input::placeholder {
+  color: var(--text-color-secondary); /* Grey placeholder text */
+  opacity: 0.8;
+}
+
+#toolbar input:focus {
+  outline: none;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.3), 0 0 5px var(--brand-color-primary); /* Focus shadow */
+}
+
+
+/* -------------------------------------------------- */
+/* ✨ Content Area ✨ */
+/* -------------------------------------------------- */
 #content {
-  margin-top: calc(var(--toolbar-height) + 20px); /* Adjusted for clarity */
+  margin-top: calc(var(--toolbar-height) + var(--toolbar-top) + 30px); /* Adjusted for toolbar spacing */
+  padding: 20px; /* Add some padding to content */
+  text-align: center; /* Center align content for example */
 }
 
+
+/* -------------------------------------------------- */
+/* ✨ Main Buttons -  Call to Action Buttons ✨ */
+/* -------------------------------------------------- */
 .main_button {
-  padding: 15px;
-  background-color: #1b1b1b;
-  border-style: solid;
+  padding: var(--button-padding-vertical) var(--button-padding-horizontal);
+  background-color: var(--background-color-main); /* Dark button background */
+  border: 2px solid transparent; /* No visible border initially */
   margin: 15px;
-  width: 155px;
-  color: white;
-  border-color: transparent;
-  border-radius: 15px;
+  width: auto; /* Let width adjust to content */
+  min-width: 160px; /* Minimum button width */
+  color: var(--text-color-primary);
+  border-radius: var(--border-radius-base);
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background-color 0.3s, color 0.3s, transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 3px 8px var(--shadow-color);
+  display: inline-block; /* Allows for horizontal button layout */
 }
 
 .main_button:hover {
-  background-color: #131314;
-  color: white;
-  transform: translateY(13px); /* Correcting the transform value to include px */
+  background-color: var(--brand-color-primary); /* Brand color on hover */
+  color: var(--text-color-primary);
+  transform: translateY(-3px); /* Subtle lift on hover */
+  box-shadow: 0 6px 12px var(--shadow-color); /* Deeper shadow on hover */
+  border-color: var(--brand-color-secondary); /* Subtle border highlight on hover */
+}
+
+.main_button:active {
+  transform: translateY(0); /* No lift when active/clicked */
+  box-shadow: 0 2px 4px var(--shadow-color); /* Reduced shadow when active */
 }
 
 
-.close-btn {
-  position: absolute;
-  right: 0;
-  top: -30px;
-  cursor: pointer;
-  z-index: 99;
-  font-size: 30px;
-  color: #fff;
-}
-
-@keyframes grow {
-  100% {
-      padding: 15px;
- }
-}
-@keyframes shrink {
-  from {
-      padding: 15px;
- }
-  to {
-      padding: 10px;
-
-  }
-}
-
+/* -------------------------------------------------- */
+/* ✨ Custom Modal -  Dialog Boxes ✨ */
+/* -------------------------------------------------- */
 .custom-model-main {
   text-align: center;
   overflow: hidden;
@@ -155,16 +191,15 @@ filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#5350FF", en
   top: 0;
   right: 0;
   bottom: 0;
-  left: 0; /* z-index: 1050; */
+  left: 0;
   -webkit-overflow-scrolling: touch;
   outline: 0;
   opacity: 0;
-  -webkit-transition: opacity 0.15s linear, z-index 0.15;
-  -o-transition: opacity 0.15s linear, z-index 0.15;
-  transition: opacity 0.15s linear, z-index 0.15;
+  transition: opacity 0.2s linear, z-index 0.2s; /* Smoother transition */
   z-index: -1;
   overflow-x: hidden;
   overflow-y: auto;
+  background-color: rgba(0, 0, 0, 0.7); /* Dark semi-transparent overlay */
 }
 
 .model-open {
@@ -172,65 +207,64 @@ filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#5350FF", en
   opacity: 1;
   overflow: hidden;
 }
+
 .custom-model-inner {
-  -webkit-transform: translate(0, -25%);
-  -ms-transform: translate(0, -25%);
-  transform: translate(0, -25%);
-  -webkit-transition: -webkit-transform 0.3s ease-out;
-  -o-transition: -o-transform 0.3s ease-out;
-  transition: -webkit-transform 0.3s ease-out;
-  -o-transition: transform 0.3s ease-out;
+  transform: translate(0, -30%); /* Slightly higher start position */
   transition: transform 0.3s ease-out;
-  transition: transform 0.3s ease-out, -webkit-transform 0.3s ease-out;
   display: inline-block;
   vertical-align: middle;
-  width: 600px;
-  margin: 30px auto;
-  max-width: 97%;
+  width: 90%; /* Responsive width */
+  max-width: 700px; /* Max width for larger screens */
+  margin: auto; /* Center modal */
+  padding: 0; /* Remove default padding from inner */
 }
+
 .custom-model-wrap {
   display: block;
   width: 100%;
   position: relative;
-  background-color: #fff;
-  border: 1px solid #999;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  border-radius: 6px;
-  -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
-  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
-  background-clip: padding-box;
+  background-color: var(--background-color-toolbar); /* Dark modal background */
+  border-radius: var(--border-radius-base);
+  box-shadow: 0 7px 20px var(--shadow-color); /* Stronger modal shadow */
   outline: 0;
   text-align: left;
-  padding: 20px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
+  padding: 30px; /* More padding inside modal */
   box-sizing: border-box;
-  max-height: calc(100vh - 70px);
+  max-height: calc(100vh - 100px); /* Adjusted max height */
   overflow-y: auto;
 }
+
 .model-open .custom-model-inner {
-  -webkit-transform: translate(0, 0);
-  -ms-transform: translate(0, 0);
   transform: translate(0, 0);
-  position: relative;
-  z-index: 999;
 }
+
 .model-open .bg-overlay {
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.7); /* Darker overlay for open modal */
   z-index: 99;
 }
 
 .close-btn {
   position: absolute;
-  right: 0;
-  top: -30px;
+  right: 15px; /* Slightly more inset */
+  top: 5px; /* Adjusted top position */
   cursor: pointer;
   z-index: 99;
-  font-size: 30px;
-  color: #fff;
+  font-size: 28px; /* Adjusted size */
+  color: var(--text-color-secondary); /* Grey close button */
+  opacity: 0.8;
+  transition: opacity 0.3s, color 0.3s;
 }
 
-@media screen and (min-width:800px){
+.close-btn:hover {
+  color: var(--text-color-primary); /* Brighter on hover */
+  opacity: 1;
+}
+
+
+/* -------------------------------------------------- */
+/* ✨ Responsive Modal - Adjust for smaller screens ✨ */
+/* -------------------------------------------------- */
+@media screen and (min-width: 800px) {
   .custom-model-main:before {
     content: "";
     display: inline-block;
@@ -240,52 +274,107 @@ filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#5350FF", en
     height: 100%;
   }
 }
-@media screen and (max-width:799px){
-  .custom-model-inner{margin-top: 45px;}
+
+@media screen and (max-width: 799px) {
+  .custom-model-inner {
+    margin-top: 30px; /* Adjusted for smaller screens */
+  }
+  .custom-model-wrap {
+    padding: 20px; /* Less padding on smaller screens */
+  }
 }
 
-ntainer{
-  max-width: 450px;
-  margin: 150px auto;
+
+/* -------------------------------------------------- */
+/* ✨ Search Input (Content) -  Example Search Input - REMOVED DUPLICATE STYLES  ✨ */
+/* -------------------------------------------------- */
+/* REMOVED DUPLICATE SEARCH INPUT STYLES -  Using toolbar input for consistency.
+   If a separate search input is needed in content area, style it to be consistent with the toolbar input.
+   The provided styles were very basic and white, not fitting the dark theme.
+*/
+
+
+/* -------------------------------------------------- */
+/* ✨ Snackbar -  Notification Messages ✨ */
+/* -------------------------------------------------- */
+#snackbar {
+  visibility: hidden;
+  min-width: 250px; /* Adjusted for min-width */
+  background-color: var(--background-color-toolbar); /* Dark snackbar background */
+  color: var(--text-color-primary);
+  text-align: center;
+  border-radius: var(--border-radius-base);
+  padding: 18px; /* Slightly more padding */
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  bottom: 30px;
+  font-size: 1rem;
+  transform: translateX(-50%); /* Center using transform */
+  box-shadow: 0 5px 10px var(--shadow-color);
 }
 
-.container .searchInput{
-  width: 100%;
-  border-radius: 5px;
-  position: relative;
+#snackbar.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 3s; /* Slightly longer fadeout delay */
+  animation: fadein 0.5s, fadeout 0.5s 3s; /* Slightly longer fadeout delay */
 }
 
-.searchInput input{
-  height: 55px;
-  width: 100%;
-  outline: none;
-  border: none;
-  border-radius: 5px;
-  padding: 0 60px 0 20px;
-  font-size: 18px;
-  box-shadow: 0px 1px 5px rgba(0,0,0,0.1);
+@-webkit-keyframes fadein {
+  from { opacity: 0; bottom: 0px;}
+  to { opacity: 1; bottom: 30px;}
 }
 
-.searchInput.active input{
-  border-radius: 5px 5px 0 0;
+@keyframes fadein {
+  from { opacity: 0; bottom: 0px;}
+  to { opacity: 1; bottom: 30px;}
 }
 
-.searchInput .resultBox{
+@-webkit-keyframes fadeout {
+  from {opacity: 1; bottom: 30px;}
+  to {opacity: 0; bottom: 0px;}
+}
+
+@keyframes fadeout {
+  from {opacity: 1; bottom: 30px;}
+  to {opacity: 0; bottom: 0px;}
+}
+
+
+/* -------------------------------------------------- */
+/* ✨ Animations -  (If animations are kept) ✨ */
+/* -------------------------------------------------- */
+/* Kept grow/shrink animations -  If used, ensure they are subtle and enhance UX */
+@keyframes grow {
+  100% {
+    padding: 15px; /* Keep grow if needed */
+  }
+}
+
+@keyframes shrink {
+  from {
+    padding: 15px; /* Keep shrink if needed */
+  }
+  to {
+    padding: 10px; /* Keep shrink if needed */
+  }
+}
+
+
+.searchInput .resultBox {
   padding: 0;
-  opacity: 0;
   pointer-events: none;
   max-height: 280px;
   overflow-y: auto;
 }
 
-.searchInput.active .resultBox{
+.searchInput.active .resultBox {
   padding: 10px 8px;
   opacity: 1;
   pointer-events: auto;
 }
 
-.resultBox li{
-  list-style: none;
+.resultBox li {
   padding: 8px 12px;
   background-color: white;
   display: none;
@@ -295,58 +384,3 @@ ntainer{
   margin-bottom: 10px;
   border-radius: 3px;
 }
-
-.searchInput.active .resultBox li{
-  display: block;
-  
-}
-.resultBox li:hover{
-  background: #efefef;
-}
-
-.searchInput .icon{
-  position: absolute;
-  right: 0px;
-  top: 0px;
-  height: 55px;
-  width: 55px;
-  text-align: center;
-  line-height: 55px;
-  font-size: 20px;
-  color: #644bff;
-  cursor: pointer;
-}
-
-#snackbar {
-  visibility: hidden;
-  width: 250px;
-
-  margin-left: -125px;
-  background-color: #333;
-  color: #fff;
-  text-align: center;
-  border-radius: 2px;
-  padding: 16px;
-  position: fixed;
-  z-index: 1;
-  left: 50%;
-  bottom: 30px;
-  font-size: 17px;
-}
-
-#snackbar.show {
-  visibility: visible;
-  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-  animation: fadein 0.5s, fadeout 0.5s 2.5s;
-}
-
-@-webkit-keyframes fadein {
-  from {right: 0; opacity: 0;} 
-  to {right: 30px; opacity: 1;}
-}
-
-@keyframes fadein {
-  from {right: 0; opacity: 0;}
-  to {right: 30px; opacity: 1;}
-}
-

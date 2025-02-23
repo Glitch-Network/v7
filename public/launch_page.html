@@ -22,115 +22,206 @@
      
     </script>
   <style>
-    body {
-      background-color: black;
-      margin: 0;
-      overflow: hidden;
-    }
+/* ✨ SLEEK & MODERN DARK THEME FOR IFRAME VIEWER ✨ */
 
-    #searchbar {
-      background-color: #2c2c2c;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 40px;
-      position: absolute;
-      top: 0;
-      z-index: 15;
-      box-sizing: border-box;
-      padding: 0 10px;
-    }
+/* -------------------------------------------------- */
+/* ✨ Root Variables - THEME CUSTOMIZATION ✨ */
+/* -------------------------------------------------- */
+:root {
+  /* Primary Dark Theme Palette */
+  --color-background: #121212;         /* Deeper Dark Background */
+  --color-surface: #1e1e1e;            /* Slightly Lighter Surface for Searchbar, etc. */
+  --color-primary: #bb86fc;            /* Purple -  Primary Accent Color */
+  --color-secondary: #03dac5;          /* Teal - Secondary Accent Color */
+  --color-text-primary: #ffffff;       /* White - Primary Text Color */
+  --color-text-secondary: #aaaaaa;     /* Light Grey - Secondary Text/Hints */
+  --color-accent: var(--color-primary); /* Default Accent is Primary */
 
-    #searchbar input {
-      background-color: rgb(63, 63, 63);
-      color: white;
-      border: none;
-      border-radius: 5px;
-      padding: 5px 10px;
-      width: 50%;
-      box-sizing: border-box;
-    }
+  /* UI Elements & Spacing */
+  --spacing-unit: 10px;               /* Base Spacing Unit */
+  --padding-base: calc(var(--spacing-unit) * 0.8); /* Standard Padding */
+  --margin-base: var(--spacing-unit);  /* Standard Margin */
+  --border-radius-base: 8px;          /* Rounded Corners for UI elements */
+  --toolbar-height: 50px;              /* Height of the search bar/toolbar */
 
-    #searchbar input:focus {
-      outline: none;
-    }
+  /* Shadows & Effects */
+  --box-shadow-normal: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle Shadow */
+  --box-shadow-hover: 0 4px 10px rgba(0, 0, 0, 0.3);/* Stronger Shadow on Hover */
+  --transition-duration: 0.3s;        /* Standard Transition Duration */
+  --transition-easing: ease-in-out;   /* Standard Transition Easing */
+}
 
-    #uv-frame {
-      width: 100%;
-      height: calc(100vh - 40px);
-      border: none;
-      position: absolute;
-      top: 40px;
-      left: 0;
-    }
 
-    #home, #refresh {
-      margin-right: 10px;
-      filter: invert(1);
-      cursor: pointer;
-    }
+/* -------------------------------------------------- */
+/* ✨ Base Styles - Body and Font ✨ */
+/* -------------------------------------------------- */
+body {
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  margin: 0;
+  overflow: hidden; /* Hide scrollbars for cleaner look */
+  font-family: sans-serif; /* System font or preferred font */
+  -webkit-font-smoothing: antialiased; /* Improve font rendering on macOS */
+  -moz-osx-font-smoothing: grayscale;   /* Improve font rendering on Firefox macOS */
+}
 
-    img {
-      width: 20px;
-      margin-left: 10px;
-      cursor: pointer;
-    }
 
-    .loader {
-      width: 48px;
-      height: 48px;
-      border: 5px solid;
-      border-color: white transparent;
-      border-radius: 50%;
-      display: inline-block;
-      box-sizing: border-box;
-      animation: rotation 1s linear infinite;
-    }
+/* -------------------------------------------------- */
+/* ✨ Search Bar - Fixed at Top ✨ */
+/* -------------------------------------------------- */
+#searchbar {
+  background-color: var(--color-surface); /* Darker surface for search bar */
+  width: 100%;
+  display: flex;
+  justify-content: center; /* Center content horizontally */
+  align-items: center;     /* Center content vertically */
+  height: var(--toolbar-height);
+  position: fixed; /* Fixed position at the top */
+  top: 0;
+  z-index: 15; /* Ensure it's above iframe */
+  box-sizing: border-box;
+  padding: 0 var(--padding-base);
+  box-shadow: var(--box-shadow-normal); /* Add subtle shadow */
+}
 
-    @keyframes rotation {
-      0% {
-        transform: rotate(0deg);
-      }
-      100% {
-        transform: rotate(360deg);
-      }
-    }
 
-    iframe {
-      background-color: white;
-    }
+/* Search Input Field */
+#searchbar input {
+  background-color: #2a2a2a; /* Slightly lighter than surface, input background */
+  color: var(--color-text-primary);
+  border: none;
+  border-radius: var(--border-radius-base);
+  padding: var(--padding-base) calc(var(--padding-base) * 2); /* More horizontal padding */
+  width: 60%; /* Wider search bar */
+  min-width: 250px; /* Minimum width for responsiveness */
+  box-sizing: border-box;
+  font-size: 1rem;
+  transition: background-color var(--transition-duration) var(--transition-easing),
+              box-shadow var(--transition-duration) var(--transition-easing);
+}
 
-    .country-flag {
-      position: absolute;
-      right: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background-color: rgba(255, 255, 255, 0.1);
-      padding: 5px 10px;
-      border-radius: 20px;
-      border: 1px solid white;
-      box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-      backdrop-filter: blur(5px);
-      transition: background-color 0.3s ease;
-    }
+#searchbar input::placeholder {
+  color: var(--color-text-secondary); /* Grey placeholder text */
+  opacity: 0.7;
+}
 
-    .country-flag:hover {
-      background-color: rgba(255, 255, 255, 0.2);
-    }
+#searchbar input:focus {
+  outline: none; /* Remove default focus outline */
+  background-color: #333; /* Slightly lighter on focus */
+  box-shadow: var(--box-shadow-hover); /* Stronger shadow on focus */
+}
 
-    .country-flag img {
-      height: 20px;
-      width: auto;
-      margin-right: 8px;
-    }
 
-    .country-flag span {
-      color: white;
-      font-weight: bold;
-      letter-spacing: 1px;
-    }
+/* -------------------------------------------------- */
+/* ✨ Iframe Container - Below Search Bar ✨ */
+/* -------------------------------------------------- */
+#uv-frame {
+  width: 100%;
+  height: calc(100vh - var(--toolbar-height)); /* Adjust height to fill viewport below toolbar */
+  border: none; /* Remove default iframe border */
+  position: fixed; /* Fixed to viewport */
+  top: var(--toolbar-height); /* Position below search bar */
+  left: 0;
+}
+
+iframe {
+  background-color: var(--color-surface); /* Match iframe background to surface for seamless look, or can be 'transparent' */
+}
+
+
+/* -------------------------------------------------- */
+/* ✨ Toolbar Icons - Home, Refresh, etc. ✨ */
+/* -------------------------------------------------- */
+#home, #refresh {
+  margin-right: calc(var(--margin-base) * 1.5); /* Spacing between icons and input */
+  filter: invert(90%) sepia(10%) saturate(200%) hue-rotate(250deg) brightness(100%) contrast(90%); /* Soft purple tint, adjust filter for desired color */
+  opacity: 0.7; /* Slightly faded icons */
+  cursor: pointer;
+  transition: opacity var(--transition-duration) var(--transition-easing),
+              filter var(--transition-duration) var(--transition-easing); /* Smooth transition */
+}
+
+#home:hover, #refresh:hover {
+  opacity: 1; /* Fully visible on hover */
+  filter: invert(95%) sepia(20%) saturate(300%) hue-rotate(260deg) brightness(110%) contrast(100%); /* Slightly brighter purple on hover */
+}
+
+
+/* Generic Image Styling (Consider using more specific classes if other images are present) */
+img {
+  width: 24px; /* Slightly larger icons */
+  margin-left: calc(var(--margin-base) * 1.5); /* Spacing for icons on the left if any */
+  cursor: pointer;
+}
+
+
+/* -------------------------------------------------- */
+/* ✨ Loader Animation - Centered and Modern ✨ */
+/* -------------------------------------------------- */
+.loader {
+  width: 36px; /* Slightly smaller loader */
+  height: 36px; /* Slightly smaller loader */
+  border: 4px solid; /* Thinner border */
+  border-color: var(--color-primary) transparent; /* Brand color for loader */
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1.2s linear infinite; /* Slightly slower animation */
+  margin-left: calc(var(--margin-base) * 1.5); /* Spacing if loader is next to other elements */
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* -------------------------------------------------- */
+/* ✨ Country Flag Element - Right Aligned & Stylish ✨ */
+/* -------------------------------------------------- */
+.country-flag {
+  position: absolute; /* Positioned to the right of search bar */
+  right: var(--padding-base); /* Spacing from right edge */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgba(255, 255, 255, 0.05); /* Very subtle white overlay */
+  padding: var(--padding-base) calc(var(--padding-base) * 1.5); /* Adjusted padding */
+  border-radius: calc(var(--border-radius-base) * 2); /* More rounded corners */
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Very subtle white border */
+  box-shadow: var(--box-shadow-normal); /* Subtle shadow */
+  backdrop-filter: blur(10px); /* Stronger blur effect for glassmorphism */
+  transition: background-color var(--transition-duration) var(--transition-easing),
+              border-color var(--transition-duration) var(--transition-easing);
+}
+
+.country-flag:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Slightly more visible on hover */
+  border-color: rgba(255, 255, 255, 0.2); /* Slightly more visible border on hover */
+}
+
+
+/* Country Flag Image */
+.country-flag img {
+  height: 24px; /* Slightly larger flag image */
+  width: auto;
+  margin-right: calc(var(--margin-base) * 0.8); /* Adjusted spacing between flag and text */
+  border-radius: 3px; /* Slightly rounded flag image corners */
+}
+
+
+/* Country Flag Text (Country Code) */
+.country-flag span {
+  color: var(--color-text-primary);
+  font-weight: 500; /* Slightly bolder text */
+  letter-spacing: 0.5px; /* Slightly tighter letter spacing */
+  font-size: 0.9rem;
+  opacity: 0.9; /* Slightly less opaque text */
+}
   </style>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-278K4F012J"></script>
   <script>
@@ -215,38 +306,7 @@ const premium_status = localStorage.getItem("premium") === "true";
 let suggestions = [];
 
 
-      switch (search_engine_preference) {
-        case "Google":
-          search_engine = "https://www.google.com/search?q=";
-          break;
-        case "DuckDuckGo":
-          search_engine = "https://duckduckgo.com/?q=";
-          break;
-        case "Bing":
-          search_engine = "https://www.bing.com/search?q=";
-          break;
-        case "Yahoo":
-          search_engine = "https://search.yahoo.com/search?p=";
-          break;
-        case "Torry":
-          search_engine = premium_status ? "https://www.torry.io/search/?type=oniontab&searchby_type=1&page=1&q=" : "https://www.google.com/search?q=";
-          break;
-        case "Startpage":
-          search_engine = premium_status ? "https://www.startpage.com/do/search?query=" : "https://www.google.com/search?q=";
-          break;
-        case "Qwant":
-          search_engine = premium_status ? "https://www.qwant.com/?t=web&q=" : "https://www.google.com/search?q=";
-          break;
-        case "Brave":
-          search_engine = premium_status ? "https://search.brave.com/search?q=" : "https://www.google.com/search?q=";
-          break;
-        case "Google Scholar":
-          search_engine = premium_status ? "https://scholar.google.com/scholar?q=" : "https://www.google.com/search?q=";
-          break;
-        default:
-          search_engine = "https://www.google.com/search?q=";
-          break;
-      }
+      search_engine = "https://searx.be/search?preferences=eJx1WMuu4zYS_ZrxRoiBTAYYZOFVgGwTYLIXKLEsVYtiqfmwrfv1c6iHRVrdi3ZfF8liPU8dulWBOnFM_taRJafMv_79B4-qI48_xui5xf-Wnumrb5lsS_jrwZrEX4yyXcTem4pBLkZaZehG9pK-tjJOhgLdfFAuTNh1uasHt2JrR17Mg9ztstxUT05e8-0fF-kyUuhF3_7-63__XLy6kyfl2v726yX0NEIXJ6UXKIgm-Bq6YFodVHP7UxlPFy18aBeFr1dx3WU9Vvswm83WlmwgVyvDnR3x93Ze6YeCh7re7l2l3yO5uWZbBw5QsBjK9s6WA5S2TozZdq7Hkl3tGtgZmgy1YT3USxho9jdNdwUHLtGZ-i5uVCGw7W6ToxDmi2avGgMjyHZskZnfO9XVtZeWlalG0qyQAjjXUOUR6KGu3xnLpNWSpLpec_WxpqJmrO0JRt5eymrHqq6POlBmwv2VYRtf1aTaIV2Cy0Jas1b5KnnLD6rrO5v1_mmoRnZOXC5D8Ct8prtdvtkqlINWm0rLL_HVkwfe73CB29w59-IHAvEuQ-WH3N6GDad_mc8N4lpusV21KswUL9L1THE2NLEdKGzmNFNTqAqau-7wRiayKDtPmeIlWde2ba-aMs2tkajvRjlSnKtsJ5TAnVxyb7sU1eU9hLnbkD31g1H52dmZpo-vZz-TMPVyXW8d3aICmfJzmugLjfGuDE3o38A4ImhBt0gerGxq6kyz1l2Fqk4twWJ9rhFGz3B4a418AW6wPhSnzGsVihLUSED618mPpWcfs7VTRrO1IgyZ_EkqmXNYtVbvqCZsx2eye5RvPKXMHrvQvzQXgfz1lRl1106Sq3utIFA69CqMALV8m-F2cLnAETpW7uGJWqk0O0BJApW1Nu6O7cAqb5H7PGcR7Yi_egBTJgGCqWavLdHUkOu2r1gjFKuM-3cRjQrV-XGRDtE4BXaT-7YXVHVeq9vKZNScIMAfMchXRkE55woBieQS3KWBkae3V41T6WMzsgcskVuzuQro9W4dKPHXhHPLdx51c7jCYxfzULNV2f3Ir0Mtz9mGb-x7Oc4Dapxyc5Uy7jnz6-uXbekQ7XvlXsGdDhMqdymtUnDKegOD8xoy0vhAV7f7humo2knZ_at89QV-jM-xMbnATnsy7axUhlV69pQjUgKvt9m7i0mIK0lKkaNJMn_XwcB-h8kp9UamGpB27v238NzAx9JeZj86VvTvFBsA7GM3IDZjsuAowu9PAFauZxGcr17Fp-p2pDWH0wR23PWh0qqAJichgE8IClgo65zV7HH2XKbY08Rqj88BVOzb6P11mkGH9nS3Sus59ecYt9Jcw_0Lmo5O8lVnavEqfbylI1zk9ketGmSYJQiqfEgltucXbIo1UAdTKWRpDylm0KJi7k4u3ZITiraL1qPjfZ9PJdVLEcNZYohNXp5vyXssKTbzKGnYZNsePBaM58nNnCtOE6YRGfyn8HuUMi1J6CW69iydqF2w6ifiI55JnAjBkpNy90PmRHw_pCmFQLvrqS7zxVN15osftC5fWvJ2pO8p5u7UCIrXlwOX2_Althxlv_3239dxVEdNNq_sL6vGAobkG9FwlpwbbpMXzbzMgomNhOMOqx5pJmdtFpu5o3EHxonIfZTM0qU4PiSi9KQmrybVFhlJ38-2uQgwzTUaZNMD7XLZU148iAX6VH62Yuc0z4_I0OBK51bR6a5VfEqtx1RoC-Dyjy7Bb3b0AWKxMPQtFCnnI3hY4WAcR5MBO3D-UWR4EZzrbhWfzMKgOGbS2iV9DAdrKBB76K6d7Oh8IVs-bRYsXx8YGfFv8BZp1TiVlbxRrg8yX_LZnu6DJCjdXQXDTXS6yLeWxBmqPu5EiAKwBPPPUs6dLEd_WNAlVN-pBKjScXolMvkFG7U5xXOTFyb32-mVolgEmSXm0c5kuy3o6kH5rJsNjeNc7SNgxaFyWK07oif3szUM9fCztaR5hf_PZaTgUSRlVHjlabE_ueu93GMIYFr8YId-8xt-LS-lw3EMr4Fp536JjChw4vRo8BQK8N3XQAZAqtX2KinX0V5EAaR-Z_aTThBybJrwYE8DZlvl9JsB-fzds5Cd62LeYeXEiXk2KmOAk6CgPV4JOtHTvcZW4yoNtsB2LZfjSX3cMU97Y6wEpagfp1AcVYO3lM_fbWhL9FAZPbzk2kGApHcjz_2N7YfYRBvi3s4RzDf6d4zfv96UgImqLc1IDfopSEEvCOUIeBzxfqnebFcXM1CctjxkryqRkJ5KyZqPKnkqY3qgk83HZAjuyvYD566FWU34z_5mP35omUwEHPmbqHr9BenpQNMWA1wNTGmHpVF9wKDDuR3E9mOezL1me5eFpJk2wjNZyQ5oIxg_Qh4Wg1LRb8eSdrc8Xur0M5BDYLDtAhKGwrz9H8wqY6Q=&q=";
 
     
 

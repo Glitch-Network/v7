@@ -1,39 +1,18 @@
-<p>Allow popups to get to the site. Then refresh the page</p>
 <script>
-    
-    function handle_fullscreen() {
-    const presets = {
-        "Google Slides": "/assets/favicons/slides_favicon.png",
-        "Google": "/assets/favicons/google_favicon.png",
-        "I-Ready": "/assets/favicons/iready_favicon.png",
-        "Clever": "/assets/favicons/clever_favicon.png",
-        "FBI": "https://www.fbi.gov/++theme++fbigov.theme/images/fbi_seal_new.png",
-        "Google Classroom": "/assets/favicons/classroom_favicon.png",
-        "Github": "/assets/favicons/github_favicon.jpg",
-        "Wikipedia": "/assets/favicons/wiki_favicon.png"
-    };
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'g' || event.key === 'G') {
+    window.location.href = 'main.html';
+  }
+  else if (event.key === 'c' || event.key === 'C') {
+    let newWindow = window.open('about:blank');
+    if (newWindow) { // Check if window was opened successfully (popup blockers)
+      newWindow.document.write('<iframe src="main.html" style="border:0; position: fixed; top: 0; left: 0; width: 100%; height: 100%;"></iframe>');
+      newWindow.document.close();
+      window.location="https://google.com/search?q=math"
+    } else {
+      alert('Please allow popups to open main.html in a new window.');
+    }
 
-    let preset = localStorage.getItem("autohide_preset") || "Google Classroom";
-
-    x="main.html"
-    
-    let code = `
-        <head>
-          <title>${preset}</title>
-          <link rel="icon" type="image/x-icon" href="${presets[preset]}">
-        </head>
-        <body style="background-color: black">
-          <iframe src="${x}" frameborder="0" style="position: fixed; inset: 0; outline: none; border: none; height: 100%; width: 100%;"></iframe>
-        </body>
-    `;
-
-    let newWindow = window.open("about:blank", "_blank");
-    newWindow.document.write(code);
-    newWindow.document.close(); // Ensure the document is complete and can be rendered
-    newWindow.document.body.style.backgroundColor = "black";
-}
-
-
-handle_fullscreen()
-
+  }
+});
 </script>

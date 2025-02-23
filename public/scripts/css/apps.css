@@ -1,95 +1,228 @@
+/* ✨✨  DARK MODE - REFINED APP LAUNCHER STYLES ✨✨ */
 
+/* -------------------------------------------------- */
+/* ✨ Root Variables - DARK THEME CUSTOMIZATION ✨ */
+/* -------------------------------------------------- */
 :root {
-    --primary-color: #333;
-    --secondary-color: #fff;
-    --accent-color: #0056b3;
-    --background-color: #f5f5f5;
+    /*  Dark Theme Color Palette - Sophisticated & Modern */
+    --brand-color-primary: #BB86FC;      /*  Purple -  Vibrant Primary Accent (Material Design Inspired) */
+    --brand-color-secondary: #3700B3;    /*  Dark Purple - Secondary Accent */
+    --brand-color-accent: #03DAC5;       /*  Teal/Cyan -  Highlight/Interactive Accent (Material Design) */
 
-    --box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    --box-shadow-hover: 0 8px 16px rgba(0,0,0,0.2);
+    /* Dark Neutral Tones -  Deep & Elegant */
+    --background-color-body: #181818;    /*  Deep Charcoal - Body Background */
+    --background-color-card: #242424;     /*  Darker Grey - Card Background (Slightly Lighter than Body) */
+    --text-color-primary: #EEEEEE;       /*  Off-White - Primary Text (High Contrast) */
+    --text-color-secondary: #B0B0B0;     /*  Medium Grey - Secondary Text, Subtitles (Less Emphasis) */
+
+    /* UI Elements - Consistent Spacing, Radius, Shadows (Dark Theme Optimized) */
+    --border-radius-base: 12px;          /*  Slightly More Rounded Corners for Dark Theme */
+    --spacing-unit: 16px;               /*  Slightly Increased Base Spacing for Dark Theme Breathing Room */
+    --padding-base: var(--spacing-unit); /*  Standard Padding */
+    --margin-base: var(--spacing-unit);  /*  Standard Margin */
+
+    /* Shadows -  Subtle Depth (Dark Theme Shadows are often softer) */
+    --box-shadow-light: 0 2px 6px rgba(0,0,0,0.2);   /*  Light Shadow for Cards (Softer for Dark Theme) */
+    --box-shadow-medium: 0 4px 10px rgba(0,0,0,0.3); /*  Medium Shadow for Hover/Focus (Softer for Dark Theme) */
+    --box-shadow-hover: 0 6px 15px rgba(0,0,0,0.35); /*  Slightly Deeper Shadow on Hover (Softer for Dark Theme) */
+
+    /* Transition - Smooth Interactions (Consistent) */
+    --transition-duration: 0.25s;        /*  Slightly Longer Transition Duration for Dark Theme */
+    --transition-easing: ease-in-out;    /*  Smooth Ease-in-out for Dark Theme */
 }
 
 
-/* Center the main content */
+/* -------------------------------------------------- */
+/* ✨ Base Styles - Body and Main Container (Dark Mode Optimized) ✨ */
+/* -------------------------------------------------- */
+body {
+    font-family: sans-serif; /*  System Font Stack or specify preferred font */
+    background-color: var(--background-color-body); /* Dark Body Background */
+    color: var(--text-color-primary);             /* Light Primary Text */
+    margin: 0;
+    padding: 0;
+    line-height: 1.7;                             /* Slightly Increased Line Height for Dark Theme Readability */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
 .main {
     position: relative;
-    top: calc(var(--toolbar-top, 0) + 130px);
+    top: calc(var(--toolbar-top, 0) + 160px);     /* Adjusted top spacing for dark theme, slightly more space */
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: calc(var(--padding-base) * 1.2);      /* Slightly Increased Padding for Content Area */
 }
 
-/* Modernized search bar */
+
+/* -------------------------------------------------- */
+/* ✨ Search Bar -  Elevated and Focused Design (Dark Mode) ✨ */
+/* -------------------------------------------------- */
 #search {
-    width: 300px;
-    height: 40px;
+    width: 100%;
+    max-width: 500px;                               /* Increased Max Width for Dark Theme - More Prominent Search */
+    height: 55px;                                  /* Increased Height for Dark Theme Visibility */
     border: none;
-    background-color: var(--secondary-color);
-    color: var(--primary-color);
-    font-size: 16px;
-    padding: 0 20px;
-    border-radius: 20px;
-    box-shadow: var(--box-shadow);
-    transition: box-shadow 0.2s, transform 0.2s;
+    background-color: var(--background-color-card); /* Dark Card Background for Search */
+    color: var(--text-color-primary);             /* Light Text Color for Search Input */
+    font-size: 1.1rem;                             /* Slightly Larger Font Size for Dark Theme Readability */
+    padding: 0 calc(var(--padding-base) * 1.8);     /* Increased Horizontal Padding for Dark Theme */
+    border-radius: calc(var(--border-radius-base) * 1.5); /* More Rounded Corners - Pill Shape for Dark Theme */
+    box-shadow: var(--box-shadow-medium);           /* Medium Shadow - Dark Theme Optimized */
+    transition: box-shadow var(--transition-duration) var(--transition-easing),
+                transform var(--transition-duration) var(--transition-easing);
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+#search::placeholder {
+    color: var(--text-color-secondary);             /* Grey Placeholder Text */
+    opacity: 0.8;                                 /* Slightly Less Opaque Placeholder */
 }
 
 #search:focus {
-    outline: none;
-    box-shadow: var(--box-shadow-hover);
-    transform: translateY(-2px);
+    box-shadow: var(--box-shadow-hover);             /* Deeper Shadow on Focus - Dark Theme Optimized */
+    transform: translateY(-4px);                    /* Slightly More Pronounced Lift on Focus for Dark Theme */
+    border-color: var(--brand-color-accent);         /* Accent Border on Focus (Teal - Material Design) */
 }
 
-/* Flex container for apps */
+
+/* -------------------------------------------------- */
+/* ✨ App Grid -  Flexible and Spaced Layout (Dark Mode) ✨ */
+/* -------------------------------------------------- */
 #apps {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    margin-top: 30px;
-    max-width: 1200px;
+    margin-top: calc(var(--margin-base) * 2.5);     /* Increased Top Margin for Dark Theme Spacing */
+    max-width: 1400px;                               /* Increased Max Width for Dark Theme Layout */
+    padding: 0;
 }
 
-/* Modern app card styling */
+
+/* -------------------------------------------------- */
+/* ✨ App Card -  Modern and Interactive Styling (Dark Mode) ✨ */
+/* -------------------------------------------------- */
 #app {
-    width: 200px;
-    margin: 15px;
-    padding: 15px;
-    background-color: var(--secondary-color);
-    border-radius: 15px;
-    box-shadow: var(--box-shadow);
-    transition: transform 0.2s, box-shadow 0.2s;
+    width: 240px;                                  /* Slightly Wider Cards for Dark Theme - Visual Presence */
+    margin: var(--margin-base);
+    padding: calc(var(--padding-base) * 1.4);      /* Increased Padding Inside Cards for Dark Theme */
+    background-color: var(--background-color-card); /* Dark Card Background */
+    border-radius: var(--border-radius-base);
+    box-shadow: var(--box-shadow-light);           /* Light Shadow - Dark Theme Optimized */
+    transition: transform var(--transition-duration) var(--transition-easing),
+                box-shadow var(--transition-duration) var(--transition-easing);
     text-align: center;
     cursor: pointer;
+    overflow: hidden;
 }
 
 #app:hover {
-    transform: translateY(-10px);
-    box-shadow: var(--box-shadow-hover);
+    transform: translateY(-10px);                   /* Lift on Hover - Consistent */
+    box-shadow: var(--box-shadow-hover);           /* Deeper Shadow on Hover - Dark Theme Optimized */
+    background-color: #2e2e2e;                      /* Slightly Lighter Background on Hover for Dark Theme Interaction */
 }
 
-/* App title styling */
+#app:active {
+    transform: translateY(-2px);                   /* Less Lift when Active/Clicked - Consistent */
+    box-shadow: var(--box-shadow-medium);           /* Medium Shadow when Active - Dark Theme Optimized */
+}
+
+
+/* App title (Dark Mode) */
 #app div {
-    font-weight: 500;
-    font-size: 18px;
-    margin-top: 15px;
-    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 1.15rem;                            /* Slightly Larger Title for Dark Theme Readability */
+    margin-top: calc(var(--margin-base) * 0.9);     /* Adjusted Title Margin for Dark Theme */
+    color: var(--text-color-primary);             /* Light Primary Text Color */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 var(--padding-base);
 }
 
-/* Responsive app images */
+
+/* App images -  Improved Display (Dark Mode) */
 #app img {
     width: 100%;
     height: auto;
-    border-radius: 10px;
+    border-radius: calc(var(--border-radius-base) * 0.7); /* Slightly More Rounded Image Corners for Dark Theme Cards */
     display: block;
+    object-fit: cover;
+    margin-bottom: calc(var(--margin-base) * 0.6);     /* Adjusted Margin Below Image for Dark Theme Spacing */
+    transition: transform var(--transition-duration) var(--transition-easing);
+    opacity: 0.95;                                  /* Slightly Less Opaque Images in Dark Theme - Subtle Visual Lift */
 }
 
-/* Responsive design for smaller screens */
-@media (max-width: 600px) {
-    #app {
-        width: 100%;
-        margin: 10px 0;
+#app:hover img {
+    transform: scale(1.04);                         /* Subtle Image Zoom on Hover - Dark Theme Optimized */
+    opacity: 1;                                     /* Full Opacity on Hover */
+}
+
+
+/* -------------------------------------------------- */
+/* ✨ Responsive Design - Adjust for Smaller Screens (Dark Mode) ✨ */
+/* -------------------------------------------------- */
+@media (max-width: 768px) {
+    .main {
+        top: calc(var(--toolbar-top, 0) + 120px);     /* Adjusted Top Spacing for Smaller Screens in Dark Theme */
+        padding: var(--padding-base);                  /* Reset padding for smaller screens */
     }
 
     #search {
-        width: 80%;
+        max-width: 95%;                               /* Search Bar Wider on Smaller Screens - Dark Theme Emphasis */
+        height: 50px;                                  /* Consistent Search Bar Height */
+        font-size: 1rem;
+    }
+
+    #apps {
+        margin-top: var(--margin-base);               /* Less Top Margin on Smaller Screens */
+    }
+
+    #app {
+        width: calc(50% - calc(var(--margin-base) * 2)); /* Two Columns on Smaller Screens - Consistent */
+        max-width: 280px;                               /* Increased Max Width for App Cards on Smaller Screens in Dark Theme */
+        margin: var(--margin-base);
+        padding: calc(var(--padding-base) * 0.9);      /* Slightly Reduced Padding for Smaller Cards on Smaller Screens */
+    }
+    #app div {
+        font-size: 1rem;
+    }
+}
+
+
+@media (max-width: 500px) {
+
+    #app:hover {
+        transform: translateY(0);                     /* Disable Hover Lift on Very Small Screens/Lists */
+        box-shadow: var(--box-shadow-light);         /* Re-add Light Shadow for Hover Differentiation in List - Dark Theme */
+        background-color: #2e2e2e;                    /* Darker Background on Hover in List - Dark Theme */
+    }
+    #app {
+        width: 240px; /* Slightly wider cards */
+        /* ... other existing styles ... */
+        height: 320px; /* ADD THIS LINE: Fixed height for all app cards */
+        overflow: hidden; /* Clip content if it exceeds the fixed height */
+    }
+    
+    /*  Optional: Adjust image height to fit nicely within the fixed card height */
+    #app img {
+        width: 100%;
+        height: 60%; /* Adjust percentage as needed to control image height within the fixed card height */
+        border-radius: calc(var(--border-radius-base) * 0.7);
+        display: block;
+        object-fit: cover;
+        margin-bottom: calc(var(--margin-base) * 0.6);
+        transition: transform var(--transition-duration) var(--transition-easing);
+        opacity: 0.95;
+    }
+    #app div {
+        font-size: 1rem;
+        margin-top: 0;
+        padding-left: var(--padding-base);
+        text-align: left;
     }
 }

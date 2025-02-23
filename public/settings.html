@@ -1,547 +1,165 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <script src="scripts/js/settings.js"></script>
-    <title>Glitch | Settings</title>
-    <link rel="stylesheet" href="scripts/css/global.css">
-    <link rel="icon" href="assets/favicon.png" type="image/png">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-278K4F012J"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.14/ace.js" integrity="sha512-mAczvfhz+f1JSKzSgEb50NdMFgb+Q4mEPU6U2C8g3b7W+VXoxn5SUKmR1+wdfpkoVchD5tzgmlQtAAgriP6IWw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'G-278K4F012J');
-    </script>
-    <style>
-        body {
-            color: #fff;
-            font-family: 'Segoe UI', Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            overflow: auto;
-            background-color: #222;
-        }
-        .container {
-            text-align: left;
-            width: 100%;
-            max-width: 1000px;
-            background-color: #282d34;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-        .setting-box {
-            background-color: #1c1f24;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            color: #a9b7c6;
-        }
-        h1, button, select, input[type="text"] {
-            margin-top: 10px;
-        }
-        button, select {
-            padding: 10px 20px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            background-color: #444;
-            color: white;
-        }
-        button:hover, button:focus {
-            background-color: #555;
-        }
-        select {
-            width: 100%;
-            background-color: #444;
-            color: white;
-        }
-        input {
-            padding: 10px;
-            width: calc(100% - 32px);
-            border: none;
-            border-radius: 5px;
-            background-color: #444;
-            color: white;
-        }
-        hr {
-            border-color: #555;
-            margin: 20px 0;
-        }
-        section {
-            margin-bottom: 20px;
-        }
-        .setting-group {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 20px;
-        }
-        .setting-group > div {
-            flex: 1;
-            margin: 0 10px;
-        }
-        textarea {
-            width: 100%;
-            height: 200px;
-            background-color: #1b1b1b;
-            color: whitesmoke;
-            border-radius: 15px;     
-            border: none;
-        }
-        /* Hide scrollbar */
-        textarea::-webkit-scrollbar {
-            display : none;
-        }
-        .button-group {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-        .button-group button {
-            margin-bottom: 10px;
-            width: 100%;
-        }
-        .info-box {
-            background-color: #1c1f24;
-            padding: 15px;
-            border-radius: 8px;
-            color: #a9b7c6;
-            text-align: center;
-            grid-column: span 3;
-        }
-    </style>
+<title>Settings</title>
+<style>
+  body {
+    font-family: sans-serif;
+    background-color: #1e1e1e; /* Dark background */
+    color: #f0f0f0; /* Light text color */
+    padding: 20px;
+  }
+  .settings-container {
+    max-width: 600px;
+    margin: auto;
+    background-color: #2e2e2e; /* Slightly lighter container background */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1); /* Light shadow for dark mode */
+  }
+  .setting-section {
+    margin-bottom: 20px;
+  }
+  .setting-section h3 {
+    margin-top: 0;
+    border-bottom: 1px solid #555; /* Lighter border for dark mode */
+    padding-bottom: 5px;
+    color: #f0f0f0; /* Light text color for headings */
+  }
+  .setting-item {
+    margin-bottom: 10px;
+  }
+  .setting-item label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #f0f0f0; /* Light text color for labels */
+  }
+  .setting-item input[type="range"] {
+    width: 100%;
+    background-color: #444; /* Darker background for range input */
+    color: #f0f0f0;
+  }
+  .setting-item select {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #555; /* Darker border for select */
+    background-color: #333; /* Darker background for select */
+    color: #f0f0f0; /* Light text color for select */
+  }
+  .setting-item input[type="file"] {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #555; /* Darker border for file input */
+    background-color: #333; /* Darker background for file input */
+    color: #f0f0f0; /* Light text color for file input */
+  }
+  .setting-item button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    background-color: #555; /* Medium dark button background */
+    color: #f0f0f0;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .setting-item button:hover {
+    background-color: #777; /* Lighter button background on hover */
+  }
+  .setting-item button:active {
+    background-color: #444; /* Darker button background on active */
+  }
+  .setting-item button:disabled {
+    background-color: #333;
+    color: #999;
+    cursor: default;
+  }
+  .setting-item input[type="checkbox"],
+  .setting-item input[type="radio"] {
+    margin-right: 5px;
+  }
+  .setting-item input[type="checkbox"]:focus,
+  .setting-item input[type="radio"]:focus,
+  .setting-item input[type="range"]:focus,
+  .setting-item select:focus,
+  .setting-item input[type="file"]:focus,
+  .setting-item button:focus {
+    outline: 2px solid #77aaff; /* Focus outline color */
+    outline-offset: 1px;
+  }
+</style>
 </head>
 <body>
-    <div id="toolbar">
-        <style>
 
-
-#modal-wrapper {
-position: fixed;
-width: 100%;
-height: 100%;
-top: 0;
-right: 0;
-bottom: 0;
-left: 0;
-background: rgba(0, 0, 0, 0.2);
-text-align: center;
-padding-top: 30px;
-opacity: 0;
-transition: 0.5s ease all;
-z-index: 99999;
-}
-
-#modal-wrapper.active {
-opacity: 1;
-}
-
-#modal-wrapper.active #modal-confirmation {
-margin-top: 0;
-opacity: 1;
-}
-
-#modal-confirmation {
-display: inline-block;
-margin-top: -30px;
-opacity: 0;
-max-width: 400px;
-border-radius: 4px;
-overflow: hidden;
-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-background: #fff;
-text-align: left;
-transition: 0.5s ease all;
-}
-
-#modal-header {
-position: relative;
-background: #ff6b6b;
-padding: 15px;
-color: #fff;
-text-align: left;
-}
-
-#modal-header h3 {
-font-weight: 300;
-margin: 0;
-}
-
-#modal-close {
-position: absolute;
-right: 15px;
-top: 12px;
-font-size: 1.5em;
-cursor: pointer;
-color: #bd3d3d;
-}
-
-#modal-close:hover {
-color: #fff;
-}
-
-#modal-content {
-padding: 30px 15px;
-}
-
-#modal-content p {
-margin: 0;
-color: #61686e;
-}
-
-#modal-buttons {
-padding: 0 15px 15px 15px;
-text-align: right;
-}
-
-#modal-button-no {
-border: 2px solid #98a1a9;
-padding: 10px 30px;
-background: #fff;
-color: #98a1a9;
-font-weight: bold;
-border-radius: 4px;
-cursor: pointer;
-transition: 0.5s ease all;
-}
-
-#modal-button-no:hover {
-background: #98a1a9;
-color: #fff;
-}
-
-#modal-button-yes {
-border: 2px solid #ff6b6b;
-padding: 10px 50px;
-background: #ff6b6b;
-color: #fff;
-font-weight: bold;
-border-radius: 4px;
-cursor: pointer;
-transition: 0.5s ease all;
-margin-left: 10px;
-}
-
-#modal-button-yes:hover {
-border: 2px solid #ff4242;
-background: #ff4242;
-}
-            .material-symbols-outlined {
-                transition: background-color 0.3s, transform 0.3s;
-    }
-    
-    .material-symbols-outlined:hover {
-      transition: transform 0.2s, box-shadow 0.2s; /* Smoother transitions */
-      transform: scale(1.15); /* Subtle scaling effect */
-      box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* Deeper shadow on hover */
-    }
-    
-    
-        </style>
-        <img src="assets/images/logo_trans.png" id="glitch-logo" alt="Glitch">
-        <div id="nav-links">
-            <div id="separator"></div>
-            
-            <div onclick="window.location.href = 'main.html'"  style="display: flex;">
-            <span class="material-symbols-outlined">home</span>
-            <h3 onclick="window.location.href = 'main.html'">Home</h3>
-            </div>
-            <h3>/</h3> 
-            
-            <div onclick="window.location.href = 'apps.html'" style="display: flex;">
-            <span class="material-symbols-ousssstlined">apps</span>
-            <h3 >Apps</h3>
-          </div>
-            <h3>/</h3>
-            <div onclick="window.location.href = 'chat.html'"  style="display: flex;">
-            <span class="material-symbols-outlined">chat</span>
-            <h3>Chat</h3>
-          </div>
-          <h3>/</h3>
-          
-          <div onclick="window.location.href = 'abtbrw.html'"  style="display: flex;">
-    
-            <span class="material-symbols-outlined">window</span>
-            <h3>Windows</h3>
-          </div>
-            <h3>/</h3>
-            <div onclick="window.location.href = 'settings.html'" style="display: flex;">
-            <span class="material-symbols-outlined" style="font-variation-settings: filled;">settings</span>
-            <h3 >Settings</h3>
-          </div>
-            <h3>|</h3>
-            <h3 id="time">hai</h3>
-        </div>
-        <script>
-        function updateTime() {
-    const timeElement = document.getElementById('time');
-    if (!timeElement) return;
-    
-    const now = new Date();
-    let hours = now.getHours();
-    const minutes = now.getMinutes();
-    const ampm = hours >= 12 ? 'PM' : 'AM';
-    
-    hours = hours % 12;
-    hours = hours ? hours : 12;
-    const minutesStr = minutes < 10 ? '0' + minutes : minutes;
-    
-    const timeStr = `${hours}:${minutesStr} ${ampm}`;
-    timeElement.textContent = timeStr;
-    }
-    
-    setInterval(updateTime, 5000);
-    updateTime(); 
-        </script>
+<div class="settings-container">
+  <div class="setting-section">
+    <h3>Wallpaper</h3>
+    <div class="setting-item">
+      <label for="defaultWallpaper">Default Wallpapers ( actually horrible, please use your own )</label>
+      <select id="defaultWallpaper">
+        
+        <option value="default">Default</option>
+        <option value="cow">Cow</option>
+        <option value="babyoil">Baby Oil</option>
+        <option value="crit_rip">FBI logo</option>
+      </select>
     </div>
+    <div class="setting-item">
+      <label for="uploadWallpaper">Upload Wallpaper</label>
+      <input type="file" id="uploadWallpaper" accept="image/*">
+    </div>
+    <div class="setting-item">
+      <label>Preview</label>
+      <div id="wallpaperPreview" style="width: 200px; height: 100px; border: 1px solid #555; margin-top: 10px;"></div>
+    </div>
+  </div>
 </div>
 
-    <div class="container" style="margin-top: 150px;">
-        <div class="setting-box">
-            <h4>Set Background Image</h4>
-            <input id="bg-url" type="text" placeholder="Enter image URL">
-            <div class="button-group">
-                <button>Save</button>
-                <button>Reset</button>
-            </div>
+<script>
+  const defaultWallpaperSelect = document.getElementById('defaultWallpaper');
+  const uploadWallpaperInput = document.getElementById('uploadWallpaper');
+  const wallpaperPreview = document.getElementById('wallpaperPreview');
 
-        </div>
+  // Function to set wallpaper (for preview and actual background)
+  function setWallpaper(base64Image) {
+    wallpaperPreview.style.backgroundImage = `url(${base64Image})`;
+    wallpaperPreview.style.backgroundSize = 'cover';
+    localStorage.setItem('wallpaper', base64Image);
+  }
 
+  // Load saved wallpaper on settings page load
+  const savedWallpaper = localStorage.getItem('wallpaper');
+  if (savedWallpaper) {
+    setWallpaper(savedWallpaper);
+  }
 
-
-            <div class="setting-box">
-                <h4>Search Engine</h4>
-                <p>This allows you to change the default search engine!</p>
-        
-                <select id="search-engine">
-                    <option value="Google" selected>Google ( Default )</option>
-                    <option value="DuckDuckGo">DuckDuckGo</option>
-                    <option value="Bing">Bing</option>
-                    <option value="Yahoo">Yahoo</option>
-                </select>
-                <button>Save</button>
-            </div>
-    
-    
-            <div class="setting-box">
-                <h4>Panic Key</h4>
-                <input id="panic_key" placeholder="Input a key" type="text">
-                <input id="destination" placeholder="Panic Website (e.g., google.com)" type="text">
-                <button>Set as Panic Key</button>
-            </div>
-
-
-
-
-        <div class="setting-box">
-            <h4>Themes</h4>
-            <p>Does this need a description?</p>
-            <select id="theme-selector">    
-                <option value="null" selected>Default Theme</option>
-                <option value="Mocha">Mocha Theme</option>
-                <option value="OceanBreeze">Ocean Breeze Theme</option>
-                <option value="NeonNight">Neon Night Theme</option> 
-                <option value="Mocha">Mocha Theme</option>
-                <option value="OceanBreeze">Ocean Breeze Theme</option>
-                <option value="NeonNight">Neon Night Theme</option>
-                <option value="VintageRose">Vintage Rose Theme</option>
-                <option value="ForestGreen">Forest Green Theme</option>
-                <option value="SandyBeach">Sandy Beach Theme</option>
-                <option value="ArcticChill">Arctic Chill Theme</option>
-                <option value="SunsetOrange">Sunset Orange Theme</option>
-                <option value="MidnightBlue">Midnight Blue Theme</option>
-                <option value="TwilightPurple" id="premium-theme">Premium Purple Theme</option>
-            </select>
-        </div>
-
-
-        <div class="setting-box">
-            <h4>Hide Ads</h4>
-            <p>Pls don't</p>
-            <button style="margin-bottom: 20%;">Toggle Ads</button>
-        </div>
-
-        <div class="setting-box">
-            <h4></h4>
-            <p></p>
-            <input id="destination" placeholder="Panic Website (e.g., google.com)" type="text">
-            <button>Set as Panic Key</button>
-        </div>
-
-
-
-    </div>
-
-    
-
-
-
-    <script>
-        // Function to save the background image URL
-function saveBackgroundImage() {
-    const bgUrl = document.getElementById('bg-url').value;
-    localStorage.setItem('backgroundImage', bgUrl);
-    alert('Background image URL saved!');
-}
-
-// Function to reset the background image
-function resetBackgroundImage() {
-    localStorage.removeItem('backgroundImage');
-    document.getElementById('bg-url').value = '';
-    document.body.style.backgroundImage = '';
-    alert('Background image URL reset!');
-}
-
-// Function to toggle auto-hide
-function toggleAutoHide() {
-    let autoHide = localStorage.getItem('autohide');
-    if (autoHide === 'true') {
-        localStorage.setItem('autohide', 'false');
-        window.snackbar('Auto-Hide Disabled', 'green');
-    } else {
-        localStorage.setItem('autohide', 'true');
-        window.snackbar('Auto-Hide Enabled', 'green');
-    }
-}
-
-function toggleads() {
-    let show_ad = localStorage.getItem('hide_ad');
-    if (show_ad === 'true') {
-        localStorage.setItem('hide_ad', 'false');
-        window.snackbar('Ads Disabled', 'green');
-    } else {
-        localStorage.setItem('hide_ad', 'true');
-        window.snackbar('Ads Enabled', 'green');
-    }
-}
-
-
-function setPanicKey() {
-    const panicKey = document.getElementById('panic_key').value;
-    destination = document.getElementById('destination').value;
-
-    if (!panicKey || !destination) {
-        alert('Please enter both the Panic Key and the Destination URL.');
-        return;
-    }
-
-    if (destination.startsWith("https") == false){
-        destination = "https://" + destination
-    }
-    
-
-    localStorage.setItem('pkkey', panicKey);
-    localStorage.setItem('destination_pk', destination);
-    alert('Panic Key and Destination URL set!');
-}
-
-// Function to load the current settings
-function loadSettings() {
-    // Load background image
-    const savedBgImage = localStorage.getItem('backgroundImage');
-    if (savedBgImage) {
-        document.getElementById('bg-url').value = savedBgImage;
-        document.body.style.backgroundImage = `url(${savedBgImage})`;
-    }
-
-    const autoHide = localStorage.getItem('autohide');
-
-
-    // Load panic key settings
-    const savedPanicKey = localStorage.getItem('pkkey');
-    const savedDestination = localStorage.getItem('destination_pk');
-    if (savedPanicKey) {
-        document.getElementById('panic_key').value = savedPanicKey;
-    }
-    if (savedDestination) {
-        document.getElementById('destination').value = savedDestination;
-    }
-
-    // Load selected theme
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-        document.getElementById('theme-selector').value = savedTheme;
-        updateTheme(savedTheme);
-    }
-}
-
-// Function to update the theme based on selection
-function updateTheme(theme) {
-    const themes = {
-        // Define theme styles here based on the original script
-        Mocha: { background: '#F3E5AB', color: '#4B2E83' },
-        OceanBreeze: { background: '#A0D9FF', color: '#FFFFFF' },
-        NeonNight: { background: '#000000', color: '#00FF00' },
-        VintageRose: { background: '#F9E4E4', color: '#6D3F3F' },
-        ForestGreen: { background: '#E8F5E9', color: '#1B5E20' },
-        SandyBeach: { background: '#FFF3E0', color: '#BF360C' },
-        ArcticChill: { background: '#E1F5FE', color: '#0277BD' },
-        SunsetOrange: { background: '#FFEBEE', color: '#BF360C' },
-        MidnightBlue: { background: '#001F3F', color: '#E0E0E0' },
-        TwilightPurple: { background: '#EDE7F6', color: '#6A1B9A' },
-        null: { background: '#333', color: '#FFFFFF' } // Default theme
+  defaultWallpaperSelect.addEventListener('change', () => {
+    const wallpaperMap = {
+      "default": 'wallpaper.webp',
+      'crit_rip': 'fbi_logo_favi_april_fools.png',
+      'babyoil': 'diddy.webp',
+      'cow': 'cow.jpg'
     };
 
-    const selectedTheme = themes[theme];
-    if (selectedTheme) {
-        document.body.style.backgroundColor = selectedTheme.background;
-        document.body.style.color = selectedTheme.color;
+    const selectedWallpaper = defaultWallpaperSelect.value;
+    const imageName = wallpaperMap[selectedWallpaper];
+    const imageUrl = `assets/images/${imageName}`; // Construct image path
+    setWallpaper(imageUrl);
+  });
+
+  uploadWallpaperInput.addEventListener('change', () => {
+    const file = uploadWallpaperInput.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        setWallpaper(e.target.result);
+      }
+      reader.readAsDataURL(file);
     }
-}
-
-// Event listeners for buttons and theme selection
-document.addEventListener('DOMContentLoaded', function () {
-    // Load settings on page load
-    loadSettings();
-
-    // Event listener for saving background image
-    document.querySelector('.setting-box button:first-child').addEventListener('click', saveBackgroundImage);
-
-    // Event listener for resetting background image
-    document.querySelector('.setting-box button:last-child').addEventListener('click', resetBackgroundImage);
-
-    // Event listener for toggling auto-hide
-    document.querySelector('.setting-box:nth-child(2) button').addEventListener('click', toggleAutoHide);
-
-    // Event listener for setting panic key
-    document.querySelector('.setting-box:nth-child(3) button').addEventListener('click', setPanicKey);
-
-    // Event listener for toggling ads
-    document.querySelector('.setting-box:nth-child(7) button').addEventListener('click', toggleads);
-
-
-    // Event listener for theme selection
-    document.getElementById('theme-selector').addEventListener('change', function (event) {
-        const selectedTheme = event.target.value;
-        updateTheme(selectedTheme);
-        localStorage.setItem('theme', selectedTheme);
-    });
-
-    document.getElementById('search-selector').addEventListener('change', function (event) {
-        const selectedEngine = event.target.value;
-        localStorage.setItem('search_engine', selectedEngine);
-    });
-});
-
-    </script>
+  });
+</script>
+    
 </body>
-<script src="scripts/js/global.js"></script>
 </html>

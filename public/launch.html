@@ -9,94 +9,178 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="scripts/js/global.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
+   /* ✨ SLEEK & MODERN DARK TABS - Consistent with Iframe Viewer ✨ */
 
-        body {
-            overflow: hidden;
-            font-family: "source-3", arial;
-            background-color: #2c2c2c;
-            color: #e0e0e0;
-            margin: 0;
-            padding: 0;
-        }
+/* Import Font - Ensure consistency across components */
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
 
-        #tabs {
-            display: flex;
-            margin-top: 5px;
-            flex-wrap: nowrap;
-            z-index: 2;
-            overflow-x: auto;
-            align-items: center;
-            height: 50px; 
-            background-color: #2c2c2c;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-            padding: 0 15px;
-            border-bottom: #2c2c2c 3px solid;
-        }
+/* -------------------------------------------------- */
+/* ✨ Root Variables -  Consistent Theme Palette (From Iframe Viewer) ✨ */
+/* -------------------------------------------------- */
+:root {
+  /* Primary Dark Theme Palette - (Consistent with Iframe Viewer) */
+  --color-background: #121212;         /* Deeper Dark Background */
+  --color-surface: #1e1e1e;            /* Slightly Lighter Surface for Searchbar, Tabs etc. */
+  --color-primary: #bb86fc;            /* Purple -  Primary Accent Color */
+  --color-secondary: #03dac5;          /* Teal - Secondary Accent Color */
+  --color-text-primary: #ffffff;       /* White - Primary Text Color */
+  --color-text-secondary: #aaaaaa;     /* Light Grey - Secondary Text/Hints */
+  --color-accent: var(--color-primary); /* Default Accent is Primary */
 
-        .tab {
-            display: flex;
-            align-items: center;
-            padding: 0 10px;
-            border-radius: 4px 4px 0 0;
-            background-color: #333;
-            color: #e0e0e0;
-            cursor: pointer;
-            margin: 0 5px;
-            height: 100%;
-            transition: background-color 0.3s, color 0.3s;
-        }
+  /* UI Elements & Spacing - (Consistent with Iframe Viewer) */
+  --spacing-unit: 10px;               /* Base Spacing Unit */
+  --padding-base: calc(var(--spacing-unit) * 0.8); /* Standard Padding */
+  --margin-base: var(--spacing-unit);  /* Standard Margin */
+  --border-radius-base: 8px;          /* Rounded Corners for UI elements */
+  --toolbar-height: 50px;              /* Height of the search bar/toolbar */
 
-        .tab:hover {
-            background-color: #444;
-            color: #fff;
-        }
+  /* Shadows & Effects - (Consistent with Iframe Viewer) */
+  --box-shadow-normal: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle Shadow */
+  --box-shadow-hover: 0 4px 10px rgba(0, 0, 0, 0.3);/* Stronger Shadow on Hover */
+  --transition-duration: 0.3s;        /* Standard Transition Duration */
+  --transition-easing: ease-in-out;   /* Standard Transition Easing */
+}
 
-        .tab p {
-            margin: 0;
-            padding: 0;
-            white-space: nowrap;
-        }
 
-        .tab p.close {
-            margin-left: 10px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+/* -------------------------------------------------- */
+/* ✨ Base Styles - Body and Font ✨ */
+/* -------------------------------------------------- */
+body {
+  overflow: hidden; /* Prevent scrollbars */
+  font-family: "Source Sans 3", arial, sans-serif; /* Use imported font, add sans-serif fallback */
+  background-color: var(--color-surface); /*  <-- Changed to --color-surface */
+  color: var(--color-text-primary); /* Light text color from theme */
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased; /* Improve font rendering on macOS */
+  -moz-osx-font-smoothing: grayscale;   /* Improve font rendering on Firefox macOS */
+}
 
-        #create_tab,
-        .create_tab {
-            display: flex;
-            align-items: center;
-            padding: 0 10px;
-            border-radius: 4px;
-            background-color: #333;
-            color: #e0e0e0;
-            cursor: pointer;
-            margin: 0 5px;
-            height: 100%;
-            transition: background-color 0.3s, color 0.3s;
-        }
 
-        #create_tab:hover,
-        .create_tab:hover {
-            background-color: #444;
-            color: #fff;
-        }
+/* -------------------------------------------------- */
+/* ✨ Tabs Container - Horizontal Scrolling Tabs Bar ✨ */
+/* -------------------------------------------------- */
+#tabs {
+  display: flex;
+  margin-top: var(--margin-base); /* Spacing from top */
+  flex-wrap: nowrap; /* Prevent wrapping, allow horizontal scroll */
+  z-index: 2; /* Ensure tabs are above other content */
+  overflow-x: auto; /* Enable horizontal scrolling if tabs overflow */
+  align-items: center; /* Vertically center tabs */
+  height: var(--toolbar-height); /* Fixed height for tab bar */
+  background-color: var(--color-surface); /* Surface color for tab bar */
+  box-shadow: var(--box-shadow-normal); /* Subtle shadow for depth */
+  padding: 0 calc(var(--padding-base) * 1.5); /* Horizontal padding */
+  border-bottom: 3px solid var(--color-surface); /* Match bottom border to background for seamless look */
+}
 
-        #frames {
-            position: relative;
-            width: 100%;
-            height: calc(100vh - 30px);
-        }
+/* Hide scrollbar for cleaner look in some browsers */
+#tabs::-webkit-scrollbar {
+    display: none;  /* Safari and Chrome */
+}
+#tabs {
+    -ms-overflow-style: none; /* Internet Explorer and Edge */
+    scrollbar-width: none;   /* Firefox */
+}
 
-        iframe {
-            display: none;
-            width: 100%;
-            height: 100%;
-            border: none;
-            position: absolute;
-        }
+
+/* -------------------------------------------------- */
+/* ✨ Tab - Individual Tab Styling ✨ */
+/* -------------------------------------------------- */
+.tab {
+  display: flex;
+  align-items: center;
+  padding: 0 calc(var(--padding-base) * 1.2); /* Horizontal padding inside tab */
+  border-radius: var(--border-radius-base) var(--border-radius-base) 0 0; /* Rounded top corners */
+  background-color: #3a3a3a; /* Slightly lighter background for inactive tabs */
+  color: var(--color-text-secondary); /* Secondary text color for inactive tabs */
+  cursor: pointer;
+  margin: 0 calc(var(--margin-base) / 2); /* Spacing between tabs */
+  height: 100%; /* Fill tab bar height */
+  transition: background-color var(--transition-duration) var(--transition-easing),
+              color var(--transition-duration) var(--transition-easing),
+              box-shadow var(--transition-duration) var(--transition-easing);
+  box-shadow: none; /* No default shadow for inactive tabs */
+}
+
+.tab:hover {
+  background-color: #4a4a4a; /* Lighter background on hover */
+  color: var(--color-text-primary); /* Primary text color on hover */
+  box-shadow: var(--box-shadow-normal); /* Add subtle shadow on hover */
+}
+
+
+/* Tab Text (Title) */
+.tab p {
+  margin: 0;
+  padding: 0;
+  white-space: nowrap; /* Prevent text wrapping */
+}
+
+
+/* Tab Close Button */
+.tab p.close {
+  margin-left: var(--margin-base); /* Spacing between title and close button */
+  font-weight: bold;
+  cursor: pointer;
+  opacity: 0.7; /* Slightly faded close button */
+  transition: opacity var(--transition-duration) var(--transition-easing);
+}
+
+.tab p.close:hover {
+  opacity: 1; /* Fully visible close button on hover */
+}
+
+
+/* -------------------------------------------------- */
+/* ✨ Create Tab Button -  Styling for "New Tab" Button ✨ */
+/* -------------------------------------------------- */
+#create_tab,
+.create_tab {
+  display: flex;
+  align-items: center;
+  padding: 0 calc(var(--padding-base) * 1.2); /* Horizontal padding - same as tab */
+  border-radius: var(--border-radius-base); /* Rounded corners */
+  background-color: #3a3a3a; /* Same background as inactive tabs */
+  color: var(--color-text-secondary); /* Same text color as inactive tabs */
+  cursor: pointer;
+  margin: 0 calc(var(--margin-base) / 2); /* Spacing - same as tabs */
+  height: 100%; /* Fill tab bar height */
+  transition: background-color var(--transition-duration) var(--transition-easing),
+              color var(--transition-duration) var(--transition-easing),
+              box-shadow var(--transition-duration) var(--transition-easing);
+  box-shadow: none; /* No default shadow */
+}
+
+#create_tab:hover,
+.create_tab:hover {
+  background-color: #4a4a4a; /* Lighter background on hover - same as tabs */
+  color: var(--color-text-primary); /* Primary text color on hover - same as tabs */
+  box-shadow: var(--box-shadow-normal); /* Add subtle shadow on hover */
+}
+
+
+/* -------------------------------------------------- */
+/* ✨ Frames Container - Area for Iframes/Tab Content ✨ */
+/* -------------------------------------------------- */
+#frames {
+  position: relative; /* Position iframes within this container */
+  width: 100%;
+  height: calc(100vh - var(--toolbar-height) - var(--margin-base)); /* Fill remaining viewport space below tabs */
+  margin-top: var(--margin-base); /* Spacing from tabs */
+}
+
+
+/* -------------------------------------------------- */
+/* ✨ Iframe -  Hidden by Default, Full Size ✨ */
+/* -------------------------------------------------- */
+iframe {
+  display: none; /* Hidden by default, shown when tab is active */
+  width: 100%;
+  height: 100%;
+  border: none; /* Remove iframe border */
+  position: absolute; /* Position iframes within #frames container */
+}
     </style>
 
     <!-- Google tag (gtag.js) -->
@@ -113,8 +197,8 @@
 
 <body>
     <div id="tabs">
-        <div class="create_tab" onclick="window.location.href='./main.html'"><span class="material-symbols-outlined">home</span></div>
         <div class="create_tab" onclick="load_workspace()"><span class="material-symbols-outlined">upload_file</span></div>
+        <div id="tabs2"></div>
         <div id="create_tab" onclick="createTab('New Tab', './start.html')">+</div>
     </div>
 
